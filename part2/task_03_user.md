@@ -89,8 +89,8 @@ In this task, you will:
     - The password is **not** included in the user data returned by the API.
     - The Facade handles all interactions between layers.    
 
-    3. **Full Implementation for User Retrieval by ID (GET /api/v1/users/<user_id>)**
-    
+
+    3. **Implementation for User Retrieval by ID (GET /api/v1/users/<user_id>)**
     Continue in the `api/v1/users.py` file and include this additional code:
 
     ```python
