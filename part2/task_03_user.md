@@ -21,7 +21,7 @@ In this task, you will:
 
    **Detailed Guide to get you started**
 
-    1. **Set Up the Namespace in `app/__init__.py`**
+    ##### **Set Up the Namespace in `app/__init__.py`**
     Before implementing the endpoints, ensure that the users namespace is correctly registered in the application. Update the `app/__init__.py` file as follows:
 
     ```python
@@ -40,7 +40,7 @@ In this task, you will:
 
     This code registers the users namespace, allowing the routes defined in `api/v1/users.py` to be accessible through `/api/v1/users`.
 
-    2. **Implement the User Endpoints in the Presentation Layer (API)**
+    ##### **Implement the User Endpoints in the Presentation Layer (API)**
 
     Create the `api/v1/users.py` file and include the following code:
 
@@ -90,7 +90,8 @@ In this task, you will:
     - The Facade handles all interactions between layers.    
 
 
-    3. **Implementation for User Retrieval by ID (GET /api/v1/users/<user_id>)**
+    ##### **Implementation for User Retrieval by ID (GET /api/v1/users/<user_id>)**
+
     Continue in the `api/v1/users.py` file and include this additional code:
 
     ```python
@@ -106,8 +107,9 @@ In this task, you will:
             return {'id': str(user.id), 'first_name': user.first_name, 'last_name': user.last_name, 'email': user.email}, 200
     ```
 
-    4. **Implement the Business Logic Layer**
-    The Facade methods should be connected to the repository and models implemented in Task 2. Update services/facade.py with the following methods:
+    ##### **Implement the Business Logic Layer**
+
+   The Facade methods should be connected to the repository and models implemented in Task 2. Update services/facade.py with the following methods:
 
     ```python
     class HBnBFacade:
@@ -126,7 +128,8 @@ In this task, you will:
             return self.user_repo.get_by_attribute('email', email)
     ```
 
-    5. **Test the Provided Endpoints**
+    ##### **Test the Provided Endpoints**
+
     Use the following cURL commands or a tool like Postman to test the provided endpoints:
 
     Test the User Creation:
@@ -161,7 +164,8 @@ In this task, you will:
     }
     ```
 
-> Now you should have working services to create and retrieve users.
+    > Now you should have working services to create and retrieve users.
+
 
 Complete the task by finishing the other endpoints for User management.
 
