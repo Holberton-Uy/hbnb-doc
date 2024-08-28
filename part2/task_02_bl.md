@@ -199,34 +199,6 @@ In this task, you will:
    - Update the `README.md` file to include information about the Business Logic layer, describing the entities and their responsibilities.
    - Include examples of how the classes and methods can be used.
 
-#### Sequence Diagrams: Visualizing Class Interactions
-
-Below are sequence diagrams that illustrate the flow of method calls when creating a user and fetching a place.
-
-##### Sequence Diagram: User Creation Flow
-
-```mermaid
-sequenceDiagram
-    participant API
-    participant User
-
-    API->>+User: create_user(user_data)
-    User-->>-API: user_created_response
-```
-
-##### Sequence Diagram: Fetching a Place with Related Data
-
-```mermaid
-sequenceDiagram
-    participant API
-    participant Place
-
-    API->>+Place: get_place(place_id)
-    Place-->>-API: place_response_with_extended_info
-```
-
-These diagrams show the basic flow of operations when creating a user and fetching a place, focusing on the business logic.
-
 #### Resources
 
 1. **Python OOP Basics:** [https://realpython.com/python3-object-oriented-programming/](https://realpython.com/python3-object-oriented-programming/)
