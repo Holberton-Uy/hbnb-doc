@@ -1,13 +1,14 @@
 ### Task 6: Implement the Review Endpoints
 
 #### Objective
-Implement the API endpoints needed for managing reviews in the HBnB application. This task involves setting up CRUD operations (Create, Read, Update) for reviews, ensuring that these endpoints are integrated with the Business Logic layer through the Facade pattern. The `DELETE` operation **will** be implemented for reviews, making it the only entity for which deletion is supported in this part of the project.
+Implement the API endpoints needed for managing reviews in the HBnB application. This task involves setting up CRUD operations (Create, Read, Update, Delete) for reviews, ensuring that these endpoints are integrated with the Business Logic layer through the Facade pattern. The `DELETE` operation **will** be implemented for reviews, making it the only entity for which deletion is supported in this part of the project.
 
 In this task, you will:
 1. Set up the `POST`, `GET`, `PUT`, and `DELETE` endpoints for managing reviews.
 2. Implement the logic for handling review-related operations in the Business Logic layer.
 3. Integrate the Presentation layer (API) and Business Logic layer through the Facade.
 4. Implement validation for specific attributes like the text of the review and ensure that the review is associated with both a user and a place.
+5. Update the Place model in `api/v1/places.py` to include the collection of reviews for a place.
 
 #### Instructions
 
@@ -19,8 +20,6 @@ In this task, you will:
      - `GET /api/v1/places/<place_id>/reviews`: Retrieve all reviews for a specific place.
      - `PUT /api/v1/reviews/<review_id>`: Update a review’s information.
      - `DELETE /api/v1/reviews/<review_id>`: Delete a review.
-
-   Provide placeholders for the code, allowing students to implement the logic based on the principles already covered in the previous tasks.
 
    **Placeholders:**
    ```python
@@ -94,7 +93,32 @@ In this task, you will:
    - The `GET /api/v1/places/<place_id>/reviews` endpoint is specific to retrieving all reviews associated with a particular place.
    - Placeholders are provided, but you need to implement the logic that handles relationships between reviews, users, and places.
 
-2. **Implement the Review Management Logic in the Business Logic Layer**
+2. **Update the Place Model to Include Reviews**
+   - In the `api/v1/places.py` file, update the `place_model` to include the collection of reviews for a place. This ensures that when retrieving place details, all associated reviews are included.
+
+   **Updated Place Model:**
+   ```python
+   # Adding the review model
+   review_model = api.model('Review', {
+       'id': fields.String(description='Review ID'),
+       'text': fields.String(description='Text of the review'),
+       'user_id': fields.String(description='ID of the user')
+   })
+
+   place_model = api.model('Place', {
+       'title': fields.String(required=True, description='Title of the place'),
+       'description': fields.String(description='Description of the place'),
+       'price': fields.Float(required=True, description='Price per night'),
+       'latitude': fields.Float(required=True, description='Latitude of the place'),
+       'longitude': fields.Float(required=True, description='Longitude of the place'),
+       'owner_id': fields.String(required=True, description='ID of the owner'),
+       'owner': fields.Nested(user_model, description='Owner of the place'),
+       'amenities': fields.List(fields.Nested(amenity_model), description='List of amenities'),
+       'reviews': fields.List(fields.Nested(review_model), description='List of reviews')
+   })
+   ```
+
+3. **Implement the Review Management Logic in the Business Logic Layer**
    - In the `models/review.py` file, the `Review` class should already be implemented from Task 2. Ensure that the class can handle relationships with users and places.
 
    **Placeholders for Facade Methods:**
@@ -128,7 +152,7 @@ In this task, you will:
    - The `create_review`, `get_review`, `get_all_reviews`, `get_reviews_by_place`, `update_review`, and `delete_review` methods manage review creation, retrieval, updates, and deletion.
    - You need to implement validation to ensure that the `user_id` and `place_id` are valid and correspond to existing users and places.
 
-3. **Input and Output Formats, Status Codes**
+4. **Input and Output Formats, Status Codes**
 
    For each endpoint, ensure that the input format, output format, and status codes are consistent and clearly defined:
 
