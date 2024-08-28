@@ -1,5 +1,3 @@
-Let's revise the task according to the current implementation, considering that reviews will be implemented later, and only `User` and `Amenity` endpoints are available so far.
-
 ### Task 5: Implement the Place Endpoints
 
 #### Objective
