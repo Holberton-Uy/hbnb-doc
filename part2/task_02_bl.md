@@ -27,6 +27,7 @@ In this task, you will:
      - Timestamps for creation (`created_at`) and modification (`updated_at`).
      - The `created_at` timestamp should be set when an object is created, and the `updated_at` timestamp should be updated every time the object is modified.
    - Example base class for handling common attributes:
+   
      ```python
      import uuid
      from datetime import datetime
@@ -42,12 +43,14 @@ In this task, you will:
              self.updated_at = datetime.now()
      ```
 
+   - In this example we store the `UUID` generated as a `String` to avoid problems when retrieving from the Memory Repository.
    - Ensure that the `id` is returned by the API, but `created_at` and `updated_at` should **not** be returned, as they are for internal audit purposes only.
 
 3. **Class Implementation Guidelines**
    - Each class should include the following attributes, with appropriate types and value restrictions:
 
    **User Class:**
+   
    - `id` (UUID): Unique identifier for each user.
    - `first_name` (String): The first name of the user. Required, maximum length of 50 characters.
    - `last_name` (String): The last name of the user. Required, maximum length of 50 characters.
@@ -57,6 +60,7 @@ In this task, you will:
    - `updated_at` (DateTime): Timestamp when the user is last updated.
 
    **Place Class:**
+   
    - `id` (UUID): Unique identifier for each place.
    - `title` (String): The title of the place. Required, maximum length of 100 characters.
    - `description` (String): Detailed description of the place. Optional.
@@ -68,6 +72,7 @@ In this task, you will:
    - `updated_at` (DateTime): Timestamp when the place is last updated.
 
    **Review Class:**
+   
    - `id` (UUID): Unique identifier for each review.
    - `text` (String): The content of the review. Required.
    - `rating` (Integer): Rating given to the place, must be between 1 and 5.
@@ -77,6 +82,7 @@ In this task, you will:
    - `updated_at` (DateTime): Timestamp when the review is last updated.
 
    **Amenity Class:**
+   
    - `id` (UUID): Unique identifier for each amenity.
    - `name` (String): The name of the amenity (e.g., "Wi-Fi", "Parking"). Required, maximum length of 50 characters.
    - `created_at` (DateTime): Timestamp when the amenity is created.
@@ -84,22 +90,26 @@ In this task, you will:
 
    - Methods should be implemented to handle core operations, such as creating, updating, and retrieving instances. For instance, `save` methods to update timestamps and validate input data according to the constraints listed.
 
-4. **Implement Relationships Between Entities**
+5. **Implement Relationships Between Entities**
    - Define relationships between the classes as follows:
 
    **User and Place:**
+   
    - A `User` can own multiple `Place` instances (`one-to-many` relationship).
    - The `Place` class should include an attribute `owner_id`, referencing the `User` who owns it.
 
    **Place and Review:**
+   
    - A `Place` can have multiple `Review` instances (`one-to-many` relationship).
    - The `Review` class should include attributes `place_id` and `user_id`, referencing the `Place` being reviewed and the `User` who wrote the review, respectively.
 
    **Place and Amenity:**
+   
    - A `Place` can have multiple `Amenity` instances (`many-to-many` relationship).
    - This relationship can be represented using a list of amenities within the `Place` class. For simplicity, in-memory storage or a list of amenity IDs can be used.
 
    - Example of implementing relationships:
+   
      ```python
      class Place(BaseModel):
          def __init__(self, title, description, price, latitude, longitude, owner_id):
@@ -124,7 +134,7 @@ In this task, you will:
 
    - Implement methods for managing these relationships, like adding a review to a place, or listing amenities associated with a place. Ensure that these operations validate the existence of related entities to maintain data integrity.
 
-5. **Test the Core Classes Independently**
+7. **Test the Core Classes Independently**
    - Before moving on to the API implementation, write simple tests to validate that the classes are functioning as expected.
    - Ensure that relationships between entities (e.g., adding a review to a place) work correctly.
 
