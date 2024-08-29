@@ -144,56 +144,56 @@ In this task, you will:
 
   1. **Testing the User Class:**
 
-    ```python
-    from models.user import User
-
-    def test_user_creation():
-        user = User(first_name="John", last_name="Doe", email="john.doe@example.com")
-        assert user.first_name == "John"
-        assert user.last_name == "Doe"
-        assert user.email == "john.doe@example.com"
-        assert user.is_admin is False  # Default value
-        print("User creation test passed!")
-
-    test_user_creation()
-    ```
+       ```python
+       from models.user import User
+   
+       def test_user_creation():
+           user = User(first_name="John", last_name="Doe", email="john.doe@example.com")
+           assert user.first_name == "John"
+           assert user.last_name == "Doe"
+           assert user.email == "john.doe@example.com"
+           assert user.is_admin is False  # Default value
+           print("User creation test passed!")
+   
+       test_user_creation()
+       ```
 
   2. **Testing the Place Class with Relationships:**
 
-    ```python
-    from models.place import Place
-    from models.user import User
-    from models.review import Review
-
-    def test_place_creation():
-        owner = User(first_name="Alice", last_name="Smith", email="alice.smith@example.com")
-        place = Place(title="Cozy Apartment", description="A nice place to stay", price=100, latitude=37.7749, longitude=-122.4194, owner_id=owner.id)
-
-        # Adding a review
-        review = Review(text="Great stay!", rating=5, place_id=place.id, user_id=owner.id)
-        place.add_review(review)
-
-        assert place.title == "Cozy Apartment"
-        assert place.price == 100
-        assert len(place.reviews) == 1
-        assert place.reviews[0].text == "Great stay!"
-        print("Place creation and relationship test passed!")
-
-    test_place_creation()
-    ```
+       ```python
+       from models.place import Place
+       from models.user import User
+       from models.review import Review
+   
+       def test_place_creation():
+           owner = User(first_name="Alice", last_name="Smith", email="alice.smith@example.com")
+           place = Place(title="Cozy Apartment", description="A nice place to stay", price=100, latitude=37.7749, longitude=-122.4194, owner_id=owner.id)
+   
+           # Adding a review
+           review = Review(text="Great stay!", rating=5, place_id=place.id, user_id=owner.id)
+           place.add_review(review)
+   
+           assert place.title == "Cozy Apartment"
+           assert place.price == 100
+           assert len(place.reviews) == 1
+           assert place.reviews[0].text == "Great stay!"
+           print("Place creation and relationship test passed!")
+   
+       test_place_creation()
+       ```
 
   3. **Testing the Amenity Class:**
 
-    ```python
-    from models.amenity import Amenity
-
-    def test_amenity_creation():
-        amenity = Amenity(name="Wi-Fi")
-        assert amenity.name == "Wi-Fi"
-        print("Amenity creation test passed!")
-
-    test_amenity_creation()
-    ```
+       ```python
+       from models.amenity import Amenity
+   
+       def test_amenity_creation():
+           amenity = Amenity(name="Wi-Fi")
+           assert amenity.name == "Wi-Fi"
+           print("Amenity creation test passed!")
+   
+       test_amenity_creation()
+       ```
 
 6. **Document the Implementation**
    - Update the `README.md` file to include information about the Business Logic layer, describing the entities and their responsibilities.
