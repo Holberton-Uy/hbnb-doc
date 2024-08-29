@@ -7,8 +7,8 @@ In this task, you will:
 1. Set up the `POST`, `GET`, `PUT`, and `DELETE` endpoints for managing reviews.
 2. Implement the logic for handling review-related operations in the Business Logic layer.
 3. Integrate the Presentation layer (API) and Business Logic layer through the Facade.
-4. Implement validation for specific attributes like the text of the review and ensure that the review is associated with both a user and a place.
-5. Update the Place model in `api/v1/places.py` to include the collection of reviews for a place.
+4. Implement validation for specific attributes like the text and rating of the review, and ensure that the review is associated with both a user and a place.
+5. Update the Place model in `api/v1/places.py` to consider the collection of reviews for a place.
 
 #### Instructions
 
@@ -31,6 +31,7 @@ In this task, you will:
    # Define the review model for input validation and documentation
    review_model = api.model('Review', {
        'text': fields.String(required=True, description='Text of the review'),
+       'rating': fields.Integer(required=True, description='Rating of the place (1-5)'),
        'user_id': fields.String(required=True, description='ID of the user'),
        'place_id': fields.String(required=True, description='ID of the place')
    })
@@ -102,6 +103,7 @@ In this task, you will:
    review_model = api.model('Review', {
        'id': fields.String(description='Review ID'),
        'text': fields.String(description='Text of the review'),
+       'rating': fields.Integer(description='Rating of the place (1-5)'),
        'user_id': fields.String(description='ID of the user')
    })
 
@@ -124,7 +126,7 @@ In this task, you will:
    **Placeholders for Facade Methods:**
    ```python
    def create_review(self, review_data):
-       # Placeholder for logic to create a review, including validation for user_id and place_id
+       # Placeholder for logic to create a review, including validation for user_id, place_id, and rating
        pass
 
    def get_review(self, review_id):
@@ -150,7 +152,7 @@ In this task, you will:
 
    **Explanation:**
    - The `create_review`, `get_review`, `get_all_reviews`, `get_reviews_by_place`, `update_review`, and `delete_review` methods manage review creation, retrieval, updates, and deletion.
-   - You need to implement validation to ensure that the `user_id` and `place_id` are valid and correspond to existing users and places.
+   - You need to implement validation to ensure that the `user_id`, `place_id`, and `rating` are valid and correspond to existing users and places.
 
 4. **Input and Output Formats, Status Codes**
 
@@ -161,6 +163,7 @@ In this task, you will:
        ```json
        {
            "text": "Great place to stay!",
+           "rating": 5,
            "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
            "place_id": "1fa85f64-5717-4562-b3fc-2c963f66afa6"
        }
@@ -182,7 +185,8 @@ In this task, you will:
        [
           {
               "id": "2fa85f64-5717-4562-b3fc-2c963f66afa6",
-              "text": "Great place to stay!"
+              "text": "Great place to stay!",
+              "rating": 5
           },
           ...
        ]
@@ -196,6 +200,7 @@ In this task, you will:
        {
            "id": "2fa85f64-5717-4562-b3fc-2c963f66afa6",
            "text": "Great place to stay!",
+           "rating": 5,
            "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
            "place_id": "1fa85f64-5717-4562-b3fc-2c963f66afa6"
        }
@@ -208,7 +213,8 @@ In this task, you will:
      - **Input:**
        ```json
        {
-           "text": "Amazing stay!"
+           "text": "Amazing stay!",
+           "rating": 4
        }
        ```
      - **Output:**
@@ -239,11 +245,13 @@ In this task, you will:
        [
           {
               "id": "2fa85f64-5717-4562-b3fc-2c963f66afa6",
-              "text": "Great place to stay!"
+              "text": "Great place to stay!",
+              "rating": 5
           },
           {
               "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-              "text": "Very comfortable and clean."
+              "text": "Very comfortable and clean.",
+              "rating": 4
           }
        ]
        ```
@@ -268,6 +276,7 @@ In this task, you will:
    {
        "id": "2fa85f64-5717-4562-b3fc-2c963f66afa6",
        "text": "Great place to stay!",
+       "rating": 5,
        "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
        "place_id": "1fa85f64-5717-4562-b3fc-2c963f66afa6"
    }
