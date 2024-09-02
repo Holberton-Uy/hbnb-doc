@@ -11,6 +11,16 @@ In this task, you will:
 2. Ensure relationships between entities are correctly implemented.
 3. Handle attribute validation and updates according to the requirements.
 
+##### Why UUIDs Are Used as Identifiers
+
+In the HBnB application, each object is identified by a universally unique identifier (UUID) instead of a sequential numeric ID. Here’s why:
+
+1. Global Uniqueness: UUIDs are guaranteed to be unique across different systems and databases. This allows for distributed systems and ensures that IDs don’t clash when combining data from multiple sources.
+2. Security Considerations: Sequential numeric IDs can reveal information about the system, such as the total number of users or entities. UUIDs are non-sequential and harder to predict, adding a layer of security by preventing malicious users from easily guessing valid IDs.
+3. Scalability and Flexibility: UUIDs support systems that need to scale across multiple servers or regions. The decentralized generation of UUIDs ensures no conflict when data is merged or moved across systems.
+
+For a deeper dive into why UUIDs are preferable in certain scenarios, you can refer to this article: [What are UUIDs, and are they better than regular IDs?](https://blog.boot.dev/clean-code/what-are-uuids-and-should-you-use-them/)
+
 #### Instructions
 
 1. **Implement the Core Classes**
