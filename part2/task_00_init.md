@@ -1,23 +1,23 @@
 ### Project Setup and Package Initialization
 
-#### Objective
-
-The focus is on creating the necessary folders, packages, and files, the Presentation, Business, and Persistence layers while preparing the code to integrate the Facade pattern. Although the Persistence layer will be fully implemented in Part 3, this task includes setting up the structure and providing the complete implementation of an in-memory repository to handle object storage and validation.
-
 #### Context
 
-Before diving into the implementation of the business logic and API endpoints, it's essential to have a well-organized project structure. A clear and modular organization will help maintain the codebase, make it easier to integrate new features, and ensure that your application is scalable. Additionally, to simplify the implementation, you are provided with the complete in-memory repository code. This repository will later be replaced by a database-backed solution in Part 3.
+Before diving into the implementation of the business logic and API endpoints, it's essential to have **a well-organized project structure**. A **clear** and **modular** organization will help maintain the codebase, make it easier to integrate new features, and **ensure that your application is scalable**. Additionally, to simplify the implementation, you are provided with the **complete in-memory repository code**. This repository will later be replaced by a database-backed solution in Part 3.
 
-In this task, you will:
+#### In this task, you will:
 
-1. Set up the structure for the Presentation, Business Logic, and Persistence layers.
+1. Set up the structure for the Presentation, Business Logic, and Persistence layers, creating the necessary folders, packages, and files.
 2. Prepare the project to use the Facade pattern for communication between layers.
 3. Implement the in-memory repository to handle object storage and validation.
 4. Plan for future integration of the Persistence layer, even though it won't be fully implemented in this part.
 
+Although the Persistence layer will be fully implemented in Part 3, this task includes the implementation of the in-memory repository.
+
 #### Instructions
 
-1. **Create the Project Directory Structure**: Your project should be organized into the following structure:
+1. **Create the Project Directory Structure**:
+
+   Your project should be organized into the following structure:
 
    ```
    hbnb/
@@ -83,11 +83,9 @@ In this task, you will:
          return app
      ```
 
-   - Notice that the imports and namespace additions are commented out as placeholders to prevent import errors. These will be added in later tasks.
-
 4. **Implement the In-Memory Repository**
 
-   - The in-memory repository will handle object storage and validation. It follows a consistent interface that will later be implemented using SQL Alchemy.
+   - The in-memory repository will handle object storage and validation. It follows a consistent interface that will later be replaced by a database-backed repository.
 
    Create the following structure under the `persistence/` directory:
 
@@ -158,7 +156,7 @@ In this task, you will:
 
 5. **Plan for the Facade Pattern with Placeholders**
 
-   - In the `services/` subdirectory, create a `facade.py` file where you will define the `HBnBFacade` class. This class will handle communication between the Presentation, Business Logic, and Persistence layers. You will interact with the repositories (like the in-memory repository) through this Facade:
+   - In the `services/` subdirectory, create a `facade.py` file where you will define the `HBnBFacade` class. This class will handle communication between the Presentation, Business Logic, and Persistence layers. You will interact with the repositories (like the in-memory repository) through this Class:
 
      ```python
      from app.persistence.repository import InMemoryRepository
@@ -246,13 +244,11 @@ In this task, you will:
 
 #### Expected Outcome
 
-By the end of this task, you should have a well-organized project structure that accommodates the Presentation, Business Logic, and Persistence layers. The codebase should be modular and easy to maintain, with a clear separation of concerns. You'll also have a functional Flask application that is ready to integrate API endpoints, business logic, and persistence in the upcoming tasks.
-
-The in-memory repository and Facade pattern are now set up to streamline communication between layers. While the persistence layer is only using in-memory storage at this stage, it is designed to be easily replaced with a database-backed solution in Part 3.
+By the end of this task, you'll have a well-organized, modular project structure with clear separation of concerns across the Presentation, Business Logic, and Persistence layers. The Flask application will be functional, with an in-memory repository and Facade pattern in place, ready for future integration of API endpoints and a database-backed persistence layer.
 
 #### Resources
 
-1. **Flask Documentation:** [https://flask.palletsprojects.com/](https://flask.palletsprojects.com/)
-2. **Flask-RESTx Documentation:** [https://flask-restx.readthedocs.io/](https://flask-restx.readthedocs.io/)
-3. **Python Project Structure Best Practices:** [https://docs.python-guide.org/writing/structure/](https://docs.python-guide.org/writing/structure/)
-4. **Facade Design Pattern in Python:** [https://refactoring.guru/design-patterns/facade/python/example](https://refactoring.guru/design-patterns/facade/python/example)
+- [**Flask Documentation:**](https://flask.palletsprojects.com/)
+- [**Flask-RESTx Documentation:**](https://flask-restx.readthedocs.io/)
+- [**Python Project Structure Best Practices:**](https://docs.python-guide.org/writing/structure/)
+- [**Facade Design Pattern in Python:**](https://refactoring.guru/design-patterns/facade/python/example)
