@@ -24,33 +24,37 @@ In this task, you will:
    **Example:**
    ```python
    from app import db
-   from flask_bcrypt import generate_password_hash, check_password_hash
-
+   from flask_bcrypt import Bcrypt
+   import uuid
+   
+   bcrypt = Bcrypt()
+   
    class User(db.Model):
        __tablename__ = 'users'
-
-       id = db.Column(db.Integer, primary_key=True)
+   
+       id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
        first_name = db.Column(db.String(50), nullable=False)
        last_name = db.Column(db.String(50), nullable=False)
-       email = db.Column(db.String(100), unique=True, nullable=False)
-       password = db.Column(db.String(200), nullable=False)
+       email = db.Column(db.String(120), nullable=False, unique=True)
+       password = db.Column(db.String(128), nullable=False)
        is_admin = db.Column(db.Boolean, default=False)
-
+   
        def hash_password(self, password):
-           self.password = generate_password_hash(password).decode('utf-8')
-
+           """Hash the password before storing it."""
+           self.password = bcrypt.generate_password_hash(password).decode('utf-8')
+   
        def verify_password(self, password):
-           return check_password_hash(self.password, password)
+           """Verify the hashed password."""
+           return bcrypt.check_password_hash(self.password, password)
    ```
 
    **Explanation of SQLAlchemy Methods:**
    - `db.Column`: Defines a column in the database.
    - `primary_key=True`: Marks the column as the primary key.
    - `unique=True`: Ensures unique values (used here to prevent duplicate emails).
-   - `generate_password_hash`: Hashes the password using bcrypt.
-   - `check_password_hash`: Verifies that a provided password matches the stored hash.
 
-2. **Implement the UserRepository**
+
+1. **Implement the UserRepository**
 
    Instead of relying solely on the generic `SQLAlchemyRepository`, create a specific `UserRepository` class that extends from the base repository.
 
