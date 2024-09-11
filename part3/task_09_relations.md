@@ -131,12 +131,7 @@ After defining the relationships, you should test them using Postman or cURL. Be
    >>> db.create_all()
    ```
 
-2. Use Postman or cURL to create and link entities such as places, reviews, and amenities, verifying the relationships:
-   
-   Example cURL command to create a new place with related amenities:
-   ```bash
-   curl -X POST "http://127.0.0.1:5000/api/v1/places/" -d '{"title": "Seaside Cottage", "amenities": ["WiFi", "Pool"]}' -H "Content-Type: application/json"
-   ```
+2. Use Postman or cURL to create and link entities such as places, reviews, and amenities, verifying the relationships
 
 ---
 
