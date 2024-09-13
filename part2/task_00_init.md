@@ -2,7 +2,9 @@
 
 #### Context
 
-Before diving into the implementation of the business logic and API endpoints, it's essential to have **a well-organized project structure**. A **clear** and **modular** organization will help maintain the codebase, make it easier to integrate new features, and **ensure that your application is scalable**. Additionally, to simplify the implementation, you are provided with the **complete in-memory repository code**. This repository will later be replaced by a database-backed solution in Part 3.
+Before diving into the implementation of the business logic and API endpoints, it's essential to have **a well-organized project structure**. A **clear** and **modular** organization will help maintain the codebase, make it easier to integrate new features, and **ensure that your application is scalable**.
+
+Additionally, to simplify the implementation, you are provided with the **complete in-memory repository code**. This repository will later be replaced by a database-backed solution in Part 3.
 
 #### In this task, you will:
 

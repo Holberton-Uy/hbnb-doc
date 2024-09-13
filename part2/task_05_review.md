@@ -1,9 +1,11 @@
 ### Task 6: Implement the Review Endpoints
 
 #### Objective
+
 Implement the API endpoints needed for managing reviews in the HBnB application. This task involves setting up CRUD operations (Create, Read, Update, Delete) for reviews, ensuring that these endpoints are integrated with the Business Logic layer through the Facade pattern. The `DELETE` operation **will** be implemented for reviews, making it the only entity for which deletion is supported in this part of the project.
 
 In this task, you will:
+
 1. Set up the `POST`, `GET`, `PUT`, and `DELETE` endpoints for managing reviews.
 2. Implement the logic for handling review-related operations in the Business Logic layer.
 3. Integrate the Presentation layer (API) and Business Logic layer through the Facade.
@@ -13,6 +15,7 @@ In this task, you will:
 #### Instructions
 
 1. **Set Up the Review Endpoints in the Presentation Layer (API)**
+
    - In the `api/v1/reviews.py` file, define the following endpoints:
      - `POST /api/v1/reviews/`: Register a new review.
      - `GET /api/v1/reviews/`: Return a list of all reviews.
@@ -22,6 +25,7 @@ In this task, you will:
      - `DELETE /api/v1/reviews/<review_id>`: Delete a review.
 
    **Placeholders:**
+
    ```python
    from flask_restx import Namespace, Resource, fields
    from app.services.facade import HBnBFacade
@@ -52,7 +56,7 @@ In this task, you will:
        def get(self):
            """Retrieve a list of all reviews"""
            # Placeholder for logic to return a list of all reviews
-           pass   
+           pass
 
    @api.route('/<review_id>')
    class ReviewResource(Resource):
@@ -90,14 +94,17 @@ In this task, you will:
    ```
 
    **Explanation:**
+
    - The `POST` endpoint handles the creation of a new review, while `GET`, `PUT`, and `DELETE` endpoints manage review retrieval, updates, and deletion.
    - The `GET /api/v1/places/<place_id>/reviews` endpoint is specific to retrieving all reviews associated with a particular place.
    - Placeholders are provided, but you need to implement the logic that handles relationships between reviews, users, and places.
 
 2. **Update the Place Model to Include Reviews**
+
    - In the `api/v1/places.py` file, update the `place_model` to include the collection of reviews for a place. This ensures that when retrieving place details, all associated reviews are included.
 
    **Updated Place Model:**
+
    ```python
    # Adding the review model
    review_model = api.model('Review', {
@@ -121,9 +128,11 @@ In this task, you will:
    ```
 
 3. **Implement the Review Management Logic in the Business Logic Layer**
+
    - In the `models/review.py` file, the `Review` class should already be implemented from Task 2. Ensure that the class can handle relationships with users and places.
 
    **Placeholders for Facade Methods:**
+
    ```python
    def create_review(self, review_data):
        # Placeholder for logic to create a review, including validation for user_id, place_id, and rating
@@ -151,6 +160,7 @@ In this task, you will:
    ```
 
    **Explanation:**
+
    - The `create_review`, `get_review`, `get_all_reviews`, `get_reviews_by_place`, `update_review`, and `delete_review` methods manage review creation, retrieval, updates, and deletion.
    - You need to implement validation to ensure that the `user_id`, `place_id`, and `rating` are valid and correspond to existing users and places.
 
@@ -159,20 +169,24 @@ In this task, you will:
    For each endpoint, ensure that the input format, output format, and status codes are consistent and clearly defined:
 
    - **POST /api/v1/reviews/** (Register a new review)
+
      - **Input:**
        ```json
        {
-           "text": "Great place to stay!",
-           "rating": 5,
-           "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-           "place_id": "1fa85f64-5717-4562-b3fc-2c963f66afa6"
+         "text": "Great place to stay!",
+         "rating": 5,
+         "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+         "place_id": "1fa85f64-5717-4562-b3fc-2c963f66afa6"
        }
        ```
      - **Output:**
        ```json
        {
-           "id": "2fa85f64-5717-4562-b3fc-2c963f66afa6",
-           "message": "Review created successfully"
+         "id": "2fa85f64-5717-4562-b3fc-2c963f66afa6",
+         "text": "Great place to stay!",
+         "rating": 5,
+         "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+         "place_id": "1fa85f64-5717-4562-b3fc-2c963f66afa6"
        }
        ```
      - **Status Codes:**
@@ -180,6 +194,7 @@ In this task, you will:
        - `400 Bad Request`: If input data is invalid.
 
    - **GET /api/v1/reviews/** (Retrieve all reviews)
+
      - **Output:**
        ```json
        [
@@ -195,14 +210,15 @@ In this task, you will:
        - `200 OK`: List of reviews retrieved successfully.
 
    - **GET /api/v1/reviews/<review_id>** (Retrieve a review’s details)
+
      - **Output:**
        ```json
        {
-           "id": "2fa85f64-5717-4562-b3fc-2c963f66afa6",
-           "text": "Great place to stay!",
-           "rating": 5,
-           "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-           "place_id": "1fa85f64-5717-4562-b3fc-2c963f66afa6"
+         "id": "2fa85f64-5717-4562-b3fc-2c963f66afa6",
+         "text": "Great place to stay!",
+         "rating": 5,
+         "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+         "place_id": "1fa85f64-5717-4562-b3fc-2c963f66afa6"
        }
        ```
      - **Status Codes:**
@@ -210,17 +226,18 @@ In this task, you will:
        - `404 Not Found`: If the review does not exist.
 
    - **PUT /api/v1/reviews/<review_id>** (Update a review’s information)
+
      - **Input:**
        ```json
        {
-           "text": "Amazing stay!",
-           "rating": 4
+         "text": "Amazing stay!",
+         "rating": 4
        }
        ```
      - **Output:**
        ```json
        {
-           "message": "Review updated successfully"
+         "message": "Review updated successfully"
        }
        ```
      - **Status Codes:**
@@ -229,10 +246,11 @@ In this task, you will:
        - `400 Bad Request`: If input data is invalid.
 
    - **DELETE /api/v1/reviews/<review_id>** (Delete a review)
+
      - **Output:**
        ```json
        {
-           "message": "Review deleted successfully"
+         "message": "Review deleted successfully"
        }
        ```
      - **Status Codes:**
@@ -243,16 +261,16 @@ In this task, you will:
      - **Output:**
        ```json
        [
-          {
-              "id": "2fa85f64-5717-4562-b3fc-2c963f66afa6",
-              "text": "Great place to stay!",
-              "rating": 5
-          },
-          {
-              "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-              "text": "Very comfortable and clean.",
-              "rating": 4
-          }
+         {
+           "id": "2fa85f64-5717-4562-b3fc-2c963f66afa6",
+           "text": "Great place to stay!",
+           "rating": 5
+         },
+         {
+           "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+           "text": "Very comfortable and clean.",
+           "rating": 4
+         }
        ]
        ```
      - **Status Codes:**
@@ -260,6 +278,7 @@ In this task, you will:
        - `404 Not Found`: If the place does not exist.
 
 5. **Testing the Endpoints**
+
    - Once the endpoints are implemented, use tools like Postman or cURL to test each operation:
      - **POST**: Register a new review.
      - **GET**: Retrieve a review’s details using its ID or get all reviews for a specific place.
@@ -267,18 +286,20 @@ In this task, you will:
      - **DELETE**: Delete a review.
 
    **Example Test Using cURL:**
+
    ```bash
    curl -X GET "http://127.0.0.1:5000/api/v1/reviews/<review_id>"
    ```
 
    **Expected Response:**
+
    ```json
    {
-       "id": "2fa85f64-5717-4562-b3fc-2c963f66afa6",
-       "text": "Great place to stay!",
-       "rating": 5,
-       "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-       "place_id": "1fa85f64-5717-4562-b3fc-2c963f66afa6"
+     "id": "2fa85f64-5717-4562-b3fc-2c963f66afa6",
+     "text": "Great place to stay!",
+     "rating": 5,
+     "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+     "place_id": "1fa85f64-5717-4562-b3fc-2c963f66afa6"
    }
    ```
 
