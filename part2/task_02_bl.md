@@ -51,6 +51,13 @@ For a deeper dive into why UUIDs are preferable in certain scenarios, you can re
          def save(self):
              """Update the updated_at timestamp whenever the object is modified"""
              self.updated_at = datetime.now()
+
+         def update(self, data):
+             """Update the attributes of the object based on the provided dictionary"""
+             for key, value in data.items():
+                 if hasattr(self, key):
+                     setattr(self, key, value)
+             self.save()  # Update the updated_at timestamp     
      ```
 
    - In this example we store the `UUID` generated as a `String` to avoid problems when retrieving from the Memory Repository.
