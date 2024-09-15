@@ -14,8 +14,6 @@ In the HBnB application, each object is identified by a universally unique ident
 
 For a deeper dive into why UUIDs are preferable in certain scenarios, you can refer to this article: [What are UUIDs, and are they better than regular IDs?](https://blog.boot.dev/clean-code/what-are-uuids-and-should-you-use-them/)
 
----
-
 #### Objective
 
 In this task, you will:
@@ -170,58 +168,58 @@ In this task, you will:
 
    Here’s a basic guide on how to test your implementation:
 
-   1. **Testing the User Class:**
+   ##### **Testing the User Class:**
 
-      ```python
-      from app.models.user import User
+   ```python
+   from app.models.user import User
 
-      def test_user_creation():
-         user = User(first_name="John", last_name="Doe", email="john.doe@example.com")
-         assert user.first_name == "John"
-         assert user.last_name == "Doe"
-         assert user.email == "john.doe@example.com"
-         assert user.is_admin is False  # Default value
-         print("User creation test passed!")
+   def test_user_creation():
+      user = User(first_name="John", last_name="Doe", email="john.doe@example.com")
+      assert user.first_name == "John"
+      assert user.last_name == "Doe"
+      assert user.email == "john.doe@example.com"
+      assert user.is_admin is False  # Default value
+      print("User creation test passed!")
 
-      test_user_creation()
-      ```
+   test_user_creation()
+   ```
 
-   2. **Testing the Place Class with Relationships:**
+   ##### **Testing the Place Class with Relationships:**
 
-      ```python
-      from app.models.place import Place
-      from app.models.user import User
-      from app.models.review import Review
+   ```python
+   from app.models.place import Place
+   from app.models.user import User
+   from app.models.review import Review
 
-      def test_place_creation():
-         owner = User(first_name="Alice", last_name="Smith", email="alice.smith@example.com")
-         place = Place(title="Cozy Apartment", description="A nice place to stay", price=100, latitude=37.7749, longitude=-122.4194, owner=owner)
+   def test_place_creation():
+      owner = User(first_name="Alice", last_name="Smith", email="alice.smith@example.com")
+      place = Place(title="Cozy Apartment", description="A nice place to stay", price=100, latitude=37.7749, longitude=-122.4194, owner=owner)
 
-         # Adding a review
-         review = Review(text="Great stay!", rating=5, place=place, user=owner)
-         place.add_review(review)
+      # Adding a review
+      review = Review(text="Great stay!", rating=5, place=place, user=owner)
+      place.add_review(review)
 
-         assert place.title == "Cozy Apartment"
-         assert place.price == 100
-         assert len(place.reviews) == 1
-         assert place.reviews[0].text == "Great stay!"
-         print("Place creation and relationship test passed!")
+      assert place.title == "Cozy Apartment"
+      assert place.price == 100
+      assert len(place.reviews) == 1
+      assert place.reviews[0].text == "Great stay!"
+      print("Place creation and relationship test passed!")
 
-      test_place_creation()
-      ```
+   test_place_creation()
+   ```
 
-   3. **Testing the Amenity Class:**
+   ##### **Testing the Amenity Class:**
 
-      ```python
-      from app.models.amenity import Amenity
+   ```python
+   from app.models.amenity import Amenity
 
-      def test_amenity_creation():
-         amenity = Amenity(name="Wi-Fi")
-         assert amenity.name == "Wi-Fi"
-         print("Amenity creation test passed!")
+   def test_amenity_creation():
+      amenity = Amenity(name="Wi-Fi")
+      assert amenity.name == "Wi-Fi"
+      print("Amenity creation test passed!")
 
-      test_amenity_creation()
-      ```
+   test_amenity_creation()
+   ```
 
 5. **Document the Implementation**
    - Update the `README.md` file to include information about the Business Logic layer, describing the entities and their responsibilities.

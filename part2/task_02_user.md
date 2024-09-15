@@ -12,8 +12,6 @@ The API interface, return format, and status codes must be clearly defined since
 
 In this task, the full implementation for user creation (POST) and retrieval (GET) by ID is provided as a guide. You will be responsible for implementing the retrieval of the list of users (GET /api/v1/users/) and updating user information (PUT /api/v1/users/<user_id>)
 
-In this task, you will:
-
 1. Set up the `POST`, `GET`, and `PUT` endpoints for managing users.
 2. Implement the logic for handling user-related operations in the Business Logic layer.
 3. Integrate the Presentation layer (API) and Business Logic layer, utilizing the repository pattern.
@@ -51,6 +49,27 @@ def create_app():
 
 This code registers the users namespace, allowing the routes defined in `api/v1/users.py` to be accessible through `/api/v1/users`.
 
+##### **Implement the Business Logic Layer**
+
+The Facade methods should be connected to the repository and models implemented in Task 2. Update services/facade.py with the following methods:
+
+```python
+class HBnBFacade:
+    def __init__(self):
+        self.user_repo = InMemoryRepository()
+
+    def create_user(self, user_data):
+        user = User(**user_data)
+        self.user_repo.add(user)
+        return user
+
+    def get_user(self, user_id):
+        return self.user_repo.get(user_id)
+
+    def get_user_by_email(self, email):
+        return self.user_repo.get_by_attribute('email', email)
+```
+
 ##### **Implement the User Endpoints in the Presentation Layer (API)**
 
 Create the `api/v1/users.py` file and include the following code:
@@ -85,10 +104,6 @@ class UserList(Resource):
         if existing_user:
             return {'error': 'Email already registered'}, 400
 
-        # Validate input data
-        if not all([user_data.get('first_name'), user_data.get('last_name'), user_data.get('email')]):
-            return {'error': 'Invalid input data'}, 400
-
         new_user = facade.create_user(user_data)
         return {'id': str(new_user.id), 'message': 'User created successfully'}, 201
 ```
@@ -97,7 +112,7 @@ class UserList(Resource):
 
 - The `POST` endpoint registers a new user and performs a check for email uniqueness.
 - If the email is already registered, the API returns a 400 status code with an error message.
-- If input data is missing or invalid, a 400 status code is returned with a relevant error message.
+- If input data is missing or invalid, a 400 status code is returned with a relevant error message by the framework.
 - The password is **not** included in the user data returned by the API.
 - The Facade handles all interactions between layers.
 
@@ -118,151 +133,149 @@ class UserResource(Resource):
         return {'id': str(user.id), 'first_name': user.first_name, 'last_name': user.last_name, 'email': user.email}, 200
 ```
 
-##### **Implement the Business Logic Layer**
-
-The Facade methods should be connected to the repository and models implemented in Task 2. Update services/facade.py with the following methods:
-
-```python
-class HBnBFacade:
-    def __init__(self):
-        self.user_repo = InMemoryRepository()
-
-    def create_user(self, user_data):
-        user = User(**user_data)
-        self.user_repo.add(user)
-        return user
-
-    def get_user(self, user_id):
-        return self.user_repo.get(user_id)
-
-    def get_user_by_email(self, email):
-        return self.user_repo.get_by_attribute('email', email)
-```
-
-##### **Test the Provided Endpoints**
+##### Test the Provided Endpoints
 
 Use the following cURL commands or a tool like Postman to test the provided endpoints:
 
-Test the User Creation:
+- **Test the User Creation:**
 
-```bash
-curl -X POST "http://127.0.0.1:5000/api/v1/users/" -H "Content-Type: application/json" -d '{
-  "first_name": "John",
-  "last_name": "Doe",
-  "email": "john.doe@example.com"
-}'
-```
+  ```bash
+  curl -X POST "http://127.0.0.1:5000/api/v1/users/" -H "Content-Type: application/json" -d '{
+    "first_name": "John",
+    "last_name": "Doe",
+    "email": "john.doe@example.com"
+  }'
+  ```
 
-Expected Response:
+  Expected Response:
 
-```json
-{
-  "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-  "message": "User created successfully"
-}
-```
+  ```json
+  {
+    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "first_name": "John",
+    "last_name": "Doe",
+    "email": "john.doe@example.com"
+  }
+  ```
 
-Test User Retrieval by ID:
+- **Test User Retrieval by ID:**
 
-```bash
-curl -X GET "http://127.0.0.1:5000/api/v1/users/<user_id>"
-```
+  ```bash
+  curl -X GET "http://127.0.0.1:5000/api/v1/users/<user_id>"
+  ```
 
-Expected Response:
+  Expected Response:
 
-```json
-{
-  "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-  "first_name": "John",
-  "last_name": "Doe",
-  "email": "john.doe@example.com"
-}
-```
+  ```json
+  {
+    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "first_name": "John",
+    "last_name": "Doe",
+    "email": "john.doe@example.com"
+  }
+  ```
 
 > Now you should have working services to create and retrieve users.
 
 Complete the task by finishing the other endpoints for User management.
 
-2. **Input and Output Formats, Status Codes**
+##### Input and Output Formats, Status Codes
 
 For each endpoint, you must ensure that the input format, output format, and status codes are consistent and clearly defined:
 
 - **POST /api/v1/users/** (Register a new user)
 
-  - **Input:**
-    ```json
-    {
-      "first_name": "John",
-      "last_name": "Doe",
-      "email": "john.doe@example.com"
-    }
-    ```
-  - **Output:**
-    ```json
-    {
-      "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      "first_name": "John",
-      "last_name": "Doe",
-      "email": "john.doe@example.com"
-    }
-    ```
-  - **Status Codes:**
-    - `201 Created`: When the user is successfully created.
-    - `400 Bad Request`: If the email is already registered or input data is invalid.
+  **Input:**
+
+  ```json
+  {
+    "first_name": "John",
+    "last_name": "Doe",
+    "email": "john.doe@example.com"
+  }
+  ```
+
+  **Output:**
+
+  ```json
+  {
+    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "first_name": "John",
+    "last_name": "Doe",
+    "email": "john.doe@example.com"
+  }
+  ```
+
+  **Status Codes:**
+
+  - `201 Created`: When the user is successfully created.
+  - `400 Bad Request`: If the email is already registered or input data is invalid.
 
 - **GET /api/v1/users/** (Retrieve a list of all users)
 
-  - **Output:**
-    ```json
-    [
-        {
-            "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-            "first_name": "John",
-            "last_name": "Doe",
-            "email": "john.doe@example.com"
-        },
-        ...
-    ]
-    ```
-  - **Status Codes:**
-    - `200 OK`: When the list of users is successfully retrieved.
+  **Output:**
 
-- **GET /api/v1/users/<user_id>** (Retrieve a user’s details)
-
-  - **Output:**
-    ```json
+  ```json
+  [
     {
       "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
       "first_name": "John",
       "last_name": "Doe",
       "email": "john.doe@example.com"
-    }
-    ```
-  - **Status Codes:**
-    - `200 OK`: When the user is successfully retrieved.
-    - `404 Not Found`: If the user does not exist.
+    },
+    ...
+  ]
+  ```
+
+  **Status Codes:**
+
+  - `200 OK`: When the list of users is successfully retrieved.
+
+- **GET /api/v1/users/<user_id>** (Retrieve a user’s details)
+
+  **Output:**
+
+  ```json
+  {
+    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "first_name": "John",
+    "last_name": "Doe",
+    "email": "john.doe@example.com"
+  }
+  ```
+
+  **Status Codes:**
+
+  - `200 OK`: When the user is successfully retrieved.
+  - `404 Not Found`: If the user does not exist.
 
 - **PUT /api/v1/users/<user_id>** (Update a user’s information)
-  - **Input:**
-    ```json
-    {
-      "first_name": "Jane",
-      "last_name": "Doe",
-      "email": "jane.doe@example.com"
-    }
-    ```
-  - **Output:**
-    ```json
-    {
-      "message": "User updated successfully"
-    }
-    ```
-  - **Status Codes:**
-    - `200 OK`: When the user is successfully updated.
-    - `404 Not Found`: If the user does not exist.
-    - `400 Bad Request`: If input data is invalid.
 
-3. **Testing the Endpoints**
+  **Input:**
+
+  ```json
+  {
+    "first_name": "Jane",
+    "last_name": "Doe",
+    "email": "jane.doe@example.com"
+  }
+  ```
+
+  **Output:**
+
+  ```json
+  {
+    "message": "User updated successfully"
+  }
+  ```
+
+  **Status Codes:**
+
+  - `200 OK`: When the user is successfully updated.
+  - `404 Not Found`: If the user does not exist.
+  - `400 Bad Request`: If input data is invalid.
+
+##### Testing the Endpoints
 
 - Once the endpoints are implemented, use tools like Postman or cURL to test each operation:
 
@@ -288,10 +301,12 @@ curl -X GET "http://127.0.0.1:5000/api/v1/users/<user_id>"
 }
 ```
 
-4. **Document the User Endpoints**
-   - Update the documentation to describe each endpoint:
-     - Path, HTTP method, expected payload, and response.
-     - How to handle errors (e.g., user not found).
+##### **Document the User Endpoints**
+
+**Update the documentation to describe each endpoint:**
+
+- Path, HTTP method, expected payload, and response.
+- How to handle errors (e.g., user not found).
 
 #### Sequence Diagram: Visualizing the Flow of User Registration
 

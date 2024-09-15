@@ -286,12 +286,12 @@ In this task, you will:
      - Path, HTTP method, expected payload, and response.
      - How to handle errors (e.g., place not found).
 
-### Resources
-
-1. **Flask-RESTx Documentation:** [https://flask-restx.readthedocs.io/](https://flask-restx.readthedocs.io/)
-2. **Testing REST APIs with cURL:** [https://everything.curl.dev/](https://everything.curl.dev/)
-3. **Designing RESTful APIs:** [https://restfulapi.net/](https://restfulapi.net/)
-
 ### Expected Outcome
 
 By the end of this task, you should have implemented the core place management endpoints, including the ability to create, read, and update places. The `DELETE` operation will not be implemented for places in this part. You will have handled the relationships between places, owners, and amenities, including validating specific attributes like price, latitude, and longitude. The functionality should be documented and tested, ensuring smooth operation within the HBnB application.
+
+### Resources
+
+- [**Flask-RESTx Documentation:**](https://flask-restx.readthedocs.io/)
+- [**Testing REST APIs with cURL:**](https://everything.curl.dev/)
+- [**Designing RESTful APIs:**](https://restfulapi.net/)
