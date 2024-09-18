@@ -122,12 +122,12 @@ Each class should include the following attributes, with appropriate types and v
     **User and Place:**
 
     - A `User` can own multiple `Place` instances (`one-to-many` relationship).
-    - The `Place` class should include an attribute `owner_id`, referencing the `User` who owns it.
+    - The `Place` class should include an attribute `owner`, referencing the `User` who owns it.
 
     **Place and Review:**
 
     - A `Place` can have multiple `Review` instances (`one-to-many` relationship).
-    - The `Review` class should include attributes `place_id` and `user_id`, referencing the `Place` being reviewed and the `User` who wrote the review, respectively.
+    - The `Review` class should include attributes `place` and `user`, referencing the `Place` being reviewed and the `User` who wrote the review, respectively.
 
     **Place and Amenity:**
 
@@ -138,14 +138,14 @@ Each class should include the following attributes, with appropriate types and v
 
     ```python
     class Place(BaseModel):
-        def __init__(self, title, description, price, latitude, longitude, owner_id):
+        def __init__(self, title, description, price, latitude, longitude, owner):
             super().__init__()
             self.title = title
             self.description = description
             self.price = price
             self.latitude = latitude
             self.longitude = longitude
-            self.owner_id = owner_id
+            self.owner = owner
             self.reviews = []  # List to store related reviews
             self.amenities = []  # List to store related amenities
 

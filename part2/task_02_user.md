@@ -2,7 +2,7 @@
 
 ## Context
 
-This task involves setting up CRUD operations (Create, Read, Update) for users, ensuring that these endpoints are integrated with the Business Logic layer. The `DELETE` operation will **not** be implemented for users in this part of the project.
+This task involves setting up CRUD operations (Create, Read, Update, Delete) for users, ensuring that these endpoints are integrated with the Business Logic layer. The `DELETE` operation will **not** be implemented for users in this part of the project.
 
 The API interface, return format, and status codes must be clearly defined since it **must follow the standard RESTful API conventions**.
 
@@ -12,44 +12,13 @@ In this task, the full implementation for user creation (POST) and retrieval (GE
 
 1. Set up the `POST`, `GET`, and `PUT` endpoints for managing users.
 2. Implement the logic for handling user-related operations in the Business Logic layer.
-3. Integrate the Presentation layer (API) and Business Logic layer, u the repository pattern.
+3. Integrate the Presentation layer (API) and Business Logic layer, using the repository pattern.
 
-## Instructions
+## Instructions: Detailed Guide to get you started
 
-<!-- 1. **Set Up the User Endpoints in the Presentation Layer (API)**
+### Implement the Business Logic Layer
 
-   In the `api/v1/users.py` file, define the following endpoints:
-
-   - `POST /api/v1/users/`: Register a new user.
-   - `GET /api/v1/users/<user_id>`: Retrieve details of a specific user.
-   - `PUT /api/v1/users/<user_id>`: Update user information.
-   - `GET /api/v1/users/`: Retrieve all users. -->
-
-### Detailed Guide to get you started
-
-#### Set Up the Namespace in `app/__init__.py`
-
-Before implementing the endpoints, ensure that the users namespace is correctly registered in the application. Update the `app/__init__.py` file as follows:
-
-```python
-from flask import Flask
-from flask_restx import Api
-from app.api.v1.users import api as users_ns
-
-def create_app():
-    app = Flask(__name__)
-    api = Api(app, version='1.0', title='HBnB API', description='HBnB Application API')
-
-    # Register the users namespace
-    api.add_namespace(users_ns, path='/api/v1/users')
-    return app
-```
-
-This code registers the users namespace, allowing the routes defined in `api/v1/users.py` to be accessible through `/api/v1/users`.
-
-#### Implement the Business Logic Layer
-
-The Facade methods should be connected to the repository and models implemented in Task 2. Update services/facade.py with the following methods:
+The Facade methods should be connected to the repository and models implemented in Task 2. Update `services/facade.py` with the following methods:
 
 ```python
 class HBnBFacade:
@@ -68,7 +37,7 @@ class HBnBFacade:
         return self.user_repo.get_by_attribute('email', email)
 ```
 
-#### Implement the User Endpoints in the Presentation Layer (API)
+### Implement the User Endpoints in the Presentation Layer (API)
 
 Create the `api/v1/users.py` file and include the following code:
 
@@ -89,7 +58,7 @@ facade = HBnBFacade()
 
 @api.route('/')
 class UserList(Resource):
-    @api.expect(user_model)
+    @api.expect(user_model, validate=True)
     @api.response(201, 'User successfully created')
     @api.response(400, 'Email already registered')
     @api.response(400, 'Invalid input data')
@@ -110,10 +79,10 @@ class UserList(Resource):
 
 - The `POST` endpoint registers a new user and performs a check for email uniqueness.
 - If the email is already registered, the API returns a 400 status code with an error message.
-- If input data is missing or invalid, a 400 status code is returned with a relevant error message by the framework.
+- If input data is missing or invalid, a 400 status code is returned with a relevant error message **by the framework** thanks to the `validate=True` parameter.
 - The Facade handles all interactions between layers.
 
-#### Implementation for User Retrieval by ID (GET /api/v1/users/<user_id>)
+### Implementation for User Retrieval by ID (GET /api/v1/users/<user_id>)
 
 Continue in the `api/v1/users.py` file and include this additional code:
 
@@ -130,9 +99,45 @@ class UserResource(Resource):
         return {'id': user.id, 'first_name': user.first_name, 'last_name': user.last_name, 'email': user.email}, 200
 ```
 
+### Set Up the Namespace in `app/__init__.py`
+
+Before implementing the endpoints, ensure that the users namespace is correctly registered in the application. Update the `app/__init__.py` file as follows:
+
+```python
+from flask import Flask
+from flask_restx import Api
+from app.api.v1.users import api as users_ns
+
+def create_app():
+    app = Flask(__name__)
+    api = Api(app, version='1.0', title='HBnB API', description='HBnB Application API')
+
+    # Register the users namespace
+    api.add_namespace(users_ns, path='/api/v1/users')
+    return app
+```
+
+This code registers the users namespace, allowing the routes defined in `api/v1/users.py` to be accessible through `/api/v1/users`.
+
+Try running the application to ensure that the user registration and retrieval endpoints are working as expected.
+
 ## Input and Output Formats, Status Codes
 
 Once the endpoints are implemented, use tools like Postman or cURL to test each operation.
+
+For example, you can use the following cURL command to create a new user:
+
+```bash
+curl -X POST http://localhost:5000/api/v1/users/ \
+  -H "Content-Type: application/json" \
+  -d '{"first_name": "John", "last_name": "Doe", "email": "john.doe@example.com"}'
+```
+
+or use the following cURL command to retrieve a user by ID:
+
+```bash
+curl -X GET http://localhost:5000/api/v1/users/<user_id>
+```
 
 For each endpoint, you must ensure that the input format, output format, and status codes are consistent and clearly defined:
 
@@ -155,7 +160,7 @@ Content-Type: application/json
 
 Expected Response:
 
-```json
+```jsonc
 {
   "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
   "first_name": "John",
@@ -180,7 +185,7 @@ Content-Type: application/json
 
 Expected Response:
 
-```json
+```jsonc
 {
   "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
   "first_name": "John",
@@ -213,7 +218,7 @@ Content-Type: application/json
 
 Expected Response:
 
-```json
+```jsonc
 [
   {
     "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
@@ -246,7 +251,7 @@ Content-Type: application/json
 
 Expected Response:
 
-```json
+```jsonc
 {
   "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
   "first_name": "Jane",
@@ -281,7 +286,9 @@ This diagram shows the interaction between the API, Facade, and Business Logic l
 
 ## Expected Outcome
 
-By the end of this task, you should have fully implemented the core user management endpoints, including the ability to create, read, and update users. The provided implementation guide for the user registration endpoint should serve as a model for implementing the remaining user endpoints as well as endpoints for other entities (e.g., Place, Review, Amenity). The functionality should be documented and tested, ensuring that all user-related operations are handled smoothly within the HBnB application.
+By the end of this task, you should have fully implemented the core user management endpoints, including the ability to create, read, and update users. The provided implementation guide for the user registration endpoint should serve as a model for implementing the remaining user endpoints as well as endpoints for other entities (e.g., Place, Review, Amenity).
+
+The functionality should be documented and tested, ensuring that all user-related operations are handled smoothly within the HBnB application.
 
 ## Resources
 
