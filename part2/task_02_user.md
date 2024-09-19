@@ -2,7 +2,7 @@
 
 ## Context
 
-This task involves setting up CRUD operations (Create, Read, Update, Delete) for users, ensuring that these endpoints are integrated with the Business Logic layer. The `DELETE` operation will **not** be implemented for users in this part of the project.
+This task involves setting up the endpoints to handle CRUD operations (Create, Read, Update) for users, while ensuring integration with the Business Logic layer via the Facade pattern. The `DELETE` operation will **not** be implemented for users in this part of the project.
 
 The API interface, return format, and status codes must be clearly defined since it **must follow the standard RESTful API conventions**.
 
@@ -12,7 +12,7 @@ In this task, the full implementation for user creation (POST) and retrieval (GE
 
 1. Set up the `POST`, `GET`, and `PUT` endpoints for managing users.
 2. Implement the logic for handling user-related operations in the Business Logic layer.
-3. Integrate the Presentation layer (API) and Business Logic layer, using the repository pattern.
+3. Integrate the Presentation layer (API) and Business Logic layer through the Facade.
 
 ## Instructions: Detailed Guide to get you started
 
@@ -75,6 +75,8 @@ class UserList(Resource):
         return {'id': new_user.id, 'first_name': new_user.first_name, 'last_name': new_user.last_name, 'email': new_user.email}, 201
 ```
 
+- `POST /api/v1/users/`: Registers a new user and performs a check for email uniqueness.
+
 **Explanation:**
 
 - The `POST` endpoint registers a new user and performs a check for email uniqueness.
@@ -98,6 +100,13 @@ class UserResource(Resource):
             return {'error': 'User not found'}, 404
         return {'id': user.id, 'first_name': user.first_name, 'last_name': user.last_name, 'email': user.email}, 200
 ```
+
+- `GET /api/v1/users/<user_id>`: Retrieves user details by ID.
+
+**Explanation:**
+
+- The `GET` endpoint retrieves user details by ID.
+- If the user does not exist, the API returns a 404 status code with an error message.
 
 ### Set Up the Namespace in `app/__init__.py`
 

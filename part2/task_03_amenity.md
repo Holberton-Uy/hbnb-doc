@@ -1,215 +1,228 @@
-### Task 4: Implement the Amenity Endpoints
+# Implement the Amenity Endpoints
 
-#### Context
+## Context
 
-This task involves setting up the endpoints to handle CRUD operations (Create, Read, Update) for amenities, while ensuring integration with the Business Logic layer via the Facade pattern. The `DELETE` operation will not be implemented for amenities in this part of the project.
+This task involves setting up the endpoints to handle CRUD operations (Create, Read, Update) for amenities, while ensuring integration with the Business Logic layer via the Facade pattern. The `DELETE` operation will **not** be implemented for amenities in this part of the project.
 
-#### In this task, you will:
+## In this task, you will
 
 1. Set up the `POST`, `GET`, and `PUT` endpoints for managing amenities.
 2. Implement the necessary logic for handling amenity-related operations in the Business Logic layer.
 3. Integrate the Presentation layer (API) and Business Logic layer through the Facade.
 
-#### Instructions
+## Instructions: Detailed Guide to get you started
 
-1. **Set Up the Amenity Endpoints in the Presentation Layer (API)**
+### Implement the Business Logic Layer
 
-   - In the `api/v1/amenities.py` file, define the following endpoints:
-     - `POST /api/v1/amenities/`: Register a new amenity.
-     - `GET /api/v1/amenities/`: Return a list of all amenities.
-     - `GET /api/v1/amenities/<amenity_id>`: Retrieve details of a specific amenity.
-     - `PUT /api/v1/amenities/<amenity_id>`: Update amenity information.
+In the `models/amenity.py` file, the `Amenity` class should have already been implemented in Task 2.
 
-   Your task is to define the routes and create the skeleton methods for these endpoints. Use the placeholders provided below to get started.
+Update the `HBnBFacade` class in the `services/facade.py` file, adding the following methods:
 
-   **Placeholders:**
+```python
+def create_amenity(self, amenity_data):
+    # Placeholder for logic to create an amenity
+    pass
 
-   ```python
-   from flask_restx import Namespace, Resource, fields
-   from app.services.facade import HBnBFacade
+def get_amenity(self, amenity_id):
+    # Placeholder for logic to retrieve an amenity by ID
+    pass
 
-   api = Namespace('amenities', description='Amenity operations')
+def get_all_amenities(self):
+    # Placeholder for logic to retrieve all amenities
+    pass
 
-   # Define the amenity model for input validation and documentation
-   amenity_model = api.model('Amenity', {
-       'name': fields.String(required=True, description='Name of the amenity')
-   })
+def update_amenity(self, amenity_id, amenity_data):
+    # Placeholder for logic to update an amenity
+    pass
+```
 
-   facade = HBnBFacade()
+These methods manage the creation, retrieval, and updating of amenities within the Business Logic layer. You will need to fill in the logic that handles interactions with the repository and implements necessary validation.
 
-   @api.route('/')
-   class AmenityList(Resource):
-       @api.expect(amenity_model)
-       @api.response(201, 'Amenity successfully created')
-       @api.response(400, 'Invalid input data')
-       def post(self):
-           """Register a new amenity"""
-           # Placeholder for the logic to register a new amenity
-           pass
+### Implement the Amenity Endpoints in the Presentation Layer (API)
 
-       @api.response(200, 'List of amenities retrieved successfully')
-       def get(self):
-           """Retrieve a list of all amenities"""
-           # Placeholder for logic to return a list of all amenities
-           pass
+Create the `api/v1/amenities.py` file, then define the routes and create the skeleton methods for these endpoints. Use the placeholders provided below to get started.
 
-   @api.route('/<amenity_id>')
-   class AmenityResource(Resource):
-       @api.response(200, 'Amenity details retrieved successfully')
-       @api.response(404, 'Amenity not found')
-       def get(self, amenity_id):
-           """Get amenity details by ID"""
-           # Placeholder for the logic to retrieve an amenity by ID
-           pass
+```python
+from flask_restx import Namespace, Resource, fields
+from app.services.facade import HBnBFacade
 
-       @api.expect(amenity_model)
-       @api.response(200, 'Amenity updated successfully')
-       @api.response(404, 'Amenity not found')
-       @api.response(400, 'Invalid input data')
-       def put(self, amenity_id):
-           """Update an amenity's information"""
-           # Placeholder for the logic to update an amenity by ID
-           pass
-   ```
+api = Namespace('amenities', description='Amenity operations')
 
-   **Explanation:**
+# Define the amenity model for input validation and documentation
+amenity_model = api.model('Amenity', {
+    'name': fields.String(required=True, description='Name of the amenity')
+})
 
-   - The `POST` endpoint handles the creation of a new amenity, while the `GET` endpoints manage retrieval, both for a single amenity and a list of all amenities. The `PUT` endpoint is responsible for updating an existing amenity’s details.
-   - The placeholders give you a foundation to build on, while you will need to implement the logic based on previous examples like the user registration task.
+facade = HBnBFacade()
 
-2. **Implement the Amenity Management Logic in the Business Logic Layer**
+@api.route('/')
+class AmenityList(Resource):
+    @api.expect(amenity_model)
+    @api.response(201, 'Amenity successfully created')
+    @api.response(400, 'Invalid input data')
+    def post(self):
+        """Register a new amenity"""
+        # Placeholder for the logic to register a new amenity
+        pass
 
-   - In the `models/amenity.py` file, the `Amenity` class should have already been implemented in Task 2. Make sure that this class is capable of handling updates and storing data correctly.
+    @api.response(200, 'List of amenities retrieved successfully')
+    def get(self):
+        """Retrieve a list of all amenities"""
+        # Placeholder for logic to return a list of all amenities
+        pass
 
-   **Placeholders for Facade Methods:**
+@api.route('/<amenity_id>')
+class AmenityResource(Resource):
+    @api.response(200, 'Amenity details retrieved successfully')
+    @api.response(404, 'Amenity not found')
+    def get(self, amenity_id):
+        """Get amenity details by ID"""
+        # Placeholder for the logic to retrieve an amenity by ID
+        pass
 
-   ```python
-   def create_amenity(self, amenity_data):
-       # Placeholder for logic to create an amenity
-       pass
+    @api.expect(amenity_model)
+    @api.response(200, 'Amenity updated successfully')
+    @api.response(404, 'Amenity not found')
+    @api.response(400, 'Invalid input data')
+    def put(self, amenity_id):
+        """Update an amenity's information"""
+        # Placeholder for the logic to update an amenity by ID
+        pass
+```
 
-   def get_amenity(self, amenity_id):
-       # Placeholder for logic to retrieve an amenity by ID
-       pass
+- `POST /api/v1/amenities/`: Register a new amenity.
+- `GET /api/v1/amenities/`: Retrieve a list of all amenities.
+- `GET /api/v1/amenities/<amenity_id>`: Get amenity details by ID.
+- `PUT /api/v1/amenities/<amenity_id>`: Update an amenity's information.
 
-   def get_all_amenities(self):
-       # Placeholder for logic to retrieve all amenities
-       pass
+**Explanation:**
 
-   def update_amenity(self, amenity_id, amenity_data):
-       # Placeholder for logic to update an amenity
-       pass
-   ```
+- The `POST` endpoint handles the creation of a new amenity, while the `GET` endpoints manage retrieval, both for a single amenity and a list of all amenities. The `PUT` endpoint is responsible for updating an existing amenity’s details.
+- The placeholders give you a foundation to build on, while you will need to implement the logic based on previous examples like the user registration task.
 
-   **Explanation:**
+> [!IMPORTANT]
+> **Remember to register the namespace and API documentation for the amenity endpoints in the `api/__init__.py` file.**
 
-   - The `create_amenity`, `get_amenity`, `get_all_amenities`, and `update_amenity` methods manage the creation, retrieval, and updating of amenities within the Business Logic layer. You will need to fill in the logic that handles interactions with the repository and implements necessary validation.
+## Input and Output Formats, Status Codes
 
-3. **Input and Output Formats, Status Codes**
+For each endpoint, ensure that the input format, output format, and status codes are consistent and clearly defined.
 
-   For each endpoint, ensure that the input format, output format, and status codes are consistent and clearly defined:
+### Test the Provided Endpoints
 
-   - **POST /api/v1/amenities/** (Register a new amenity)
+Once the endpoints are implemented, use tools like Postman or cURL to test each operation.
+Ensure that your endpoints are working as expected. Here are some examples:
 
-     - **Input:**
-       ```json
-       {
-         "name": "Wi-Fi"
-       }
-       ```
-     - **Output:**
-       ```json
-       {
-         "id": "1fa85f64-5717-4562-b3fc-2c963f66afa6",
-         "name": "Wi-Fi"
-       }
-       ```
-     - **Status Codes:**
-       - `201 Created`: When the amenity is successfully created.
-       - `400 Bad Request`: If input data is invalid.
+#### Register a New Amenity (POST /api/v1/amenities/)
 
-   - **GET /api/v1/amenities/** (Retrieve all amenities)
+```http
+POST /api/v1/amenities/
+Content-Type: application/json
 
-     - **Output:**
-       ```json
-       [
-         {
-           "id": "1fa85f64-5717-4562-b3fc-2c963f66afa6",
-           "name": "Wi-Fi"
-         },
-         {
-           "id": "2fa85f64-5717-4562-b3fc-2c963f66afa6",
-           "name": "Air Conditioning"
-         }
-       ]
-       ```
-     - **Status Codes:**
-       - `200 OK`: List of amenities retrieved successfully.
+{
+  "name": "Wi-Fi"
+}
+```
 
-   - **GET /api/v1/amenities/<amenity_id>** (Retrieve an amenity’s details)
+Expected Response:
 
-     - **Output:**
-       ```json
-       {
-         "id": "1fa85f64-5717-4562-b3fc-2c963f66afa6",
-         "name": "Wi-Fi"
-       }
-       ```
-     - **Status Codes:**
-       - `200 OK`: When the amenity is successfully retrieved.
-       - `404 Not Found`: If the amenity does not exist.
+```jsonc
+{
+  "id": "1fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "name": "Wi-Fi"
+}
 
-   - **PUT /api/v1/amenities/<amenity_id>** (Update an amenity’s information)
-     - **Input:**
-       ```json
-       {
-         "name": "Air Conditioning"
-       }
-       ```
-     - **Output:**
-       ```json
-       {
-         "message": "Amenity updated successfully"
-       }
-       ```
-     - **Status Codes:**
-       - `200 OK`: When the amenity is successfully updated.
-       - `404 Not Found`: If the amenity does not exist.
-       - `400 Bad Request`: If input data is invalid.
+// 201 Created
+```
 
-4. **Testing the Endpoints**
+Possible Status Codes:
 
-   - Once the endpoints are implemented, use tools like Postman or cURL to test each operation:
-     - **POST**: Register a new amenity.
-     - **GET**: Retrieve an amenity’s details using its ID.
-     - **PUT**: Update an amenity’s information.
+- 201 Created: When the amenity is successfully created.
+- 400 Bad Request: If input data is invalid.
 
-   **Example Test Using cURL:**
+#### Retrieve All Amenities (GET /api/v1/amenities/)
 
-   ```bash
-   curl -X GET "http://127.0.0.1:5000/api/v1/amenities/<amenity_id>"
-   ```
+```http
+GET /api/v1/amenities/
+Content-Type: application/json
+```
 
-   **Expected Response:**
+Expected Response:
 
-   ```json
-   {
-     "id": "1fa85f64-5717-4562-b3fc-2c963f66afa6",
-     "name": "Wi-Fi"
-   }
-   ```
+```jsonc
+[
+  {
+    "id": "1fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "name": "Wi-Fi"
+  },
+  {
+    "id": "2fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "name": "Air Conditioning"
+  }
+]
 
-5. **Document the Amenity Endpoints**
-   - Update the documentation to describe each endpoint:
-     - Path, HTTP method, expected payload, and response.
-     - How to handle errors (e.g., amenity not found).
+// 200 OK
+```
 
-#### Expected Outcome
+Possible Status Codes:
 
-By the end of this task, you should have fully implemented the core amenity management endpoints, including the ability to create, read, and update amenities. The `DELETE` operation will not be implemented for amenities in this part. The provided placeholders should guide you in implementing the logic based on the example provided for user registration. The functionality should be documented and tested, ensuring that all amenity-related operations are handled smoothly within the HBnB application.
+- 200 OK: List of amenities retrieved successfully.
 
-#### Resources
+#### Retrieve an Amenity’s Details (GET /api/v1/amenities/<amenity_id>)
+
+```http
+GET /api/v1/amenities/<amenity_id>
+Content-Type: application/json
+```
+
+Expected Response:
+
+```jsonc
+{
+  "id": "1fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "name": "Wi-Fi"
+}
+
+// 200 OK
+```
+
+Possible Status Codes:
+
+- 200 OK: When the amenity is successfully retrieved.
+- 404 Not Found: If the amenity does not exist.
+
+#### Update an Amenity’s Information (PUT /api/v1/amenities/<amenity_id>)
+
+```http
+PUT /api/v1/amenities/<amenity_id>
+Content-Type: application/json
+
+{
+  "name": "Air Conditioning"
+}
+```
+
+Expected Response:
+
+```jsonc
+{
+  "message": "Amenity updated successfully"
+}
+
+// 200 OK
+```
+
+Possible Status Codes:
+
+- 200 OK: When the amenity is successfully updated.
+- 404 Not Found: If the amenity does not exist.
+- 400 Bad Request: If input data is invalid.
+
+## Expected Outcome
+
+By the end of this task, you should have fully implemented the core amenity management endpoints, including the ability to create, read, and update amenities. The functionality should be documented and tested, ensuring that all amenity-related operations are handled smoothly within the HBnB application.
+
+## Resources
 
 - [**Flask-RESTx Documentation**](https://flask-restx.readthedocs.io/)
 - [**Testing REST APIs with cURL**](https://everything.curl.dev/)
-- [**Designing RESTful APIs:**](https://restfulapi.net/)
+- [**Designing RESTful APIs**](https://restfulapi.net/)
