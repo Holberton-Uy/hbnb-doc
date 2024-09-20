@@ -220,6 +220,8 @@ Expected Response:
   {
     "id": "2fa85f64-5717-4562-b3fc-2c963f66afa6",
     "text": "Great place to stay!",
+    "place_id": "1fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
     "rating": 5
   },
   ...
@@ -273,7 +275,11 @@ Expected Response:
 
 ```jsonc
 {
-  "message": "Review updated successfully"
+  "id": "2fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "text": "Amazing stay!",
+  "rating": 4,
+  "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "place_id": "1fa85f64-5717-4562-b3fc-2c963f66afa6"
 }
 
 // 200 OK
@@ -294,16 +300,12 @@ DELETE /api/v1/reviews/<review_id>
 Expected Response:
 
 ```jsonc
-{
-  "message": "Review deleted successfully"
-}
-
-// 200 OK
+// 204 No Content
 ```
 
 Possible Status Codes:
 
-- 200 OK: When the review is successfully deleted.
+- 204 No Content: When the review is successfully deleted.
 - 404 Not Found: If the review does not exist.
 
 #### Retrieve All Reviews for a Specific Place (GET /api/v1/places/<place_id>/reviews)
@@ -319,11 +321,15 @@ Expected Response:
   {
     "id": "2fa85f64-5717-4562-b3fc-2c963f66afa6",
     "text": "Great place to stay!",
+    "place_id": "1fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
     "rating": 5
   },
   {
     "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
     "text": "Very comfortable and clean.",
+    "place_id": "1fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "user_id": "4fa85f64-5717-4562-b3fc-2c963f66afa6",
     "rating": 4
   }
 ]
