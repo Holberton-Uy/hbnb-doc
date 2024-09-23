@@ -189,7 +189,6 @@ Possible Status Codes:
 
 ```http
 GET /api/v1/users/<user_id>
-Content-Type: application/json
 ```
 
 Expected Response:
@@ -222,7 +221,6 @@ Ensure that your endpoints are working as expected. Here are some examples:
 
 ```http
 GET /api/v1/users/
-Content-Type: application/json
 ```
 
 Expected Response:

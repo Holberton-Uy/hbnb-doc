@@ -189,7 +189,6 @@ Possible Status Codes:
 
 ```http
 GET /api/v1/places/
-Content-Type: application/json
 ```
 
 Expected Response:
@@ -216,7 +215,6 @@ Possible Status Codes:
 
 ```http
 GET /api/v1/places/<place_id>
-Content-Type: application/json
 ```
 
 Expected Response:

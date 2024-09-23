@@ -143,7 +143,6 @@ Possible Status Codes:
 
 ```http
 GET /api/v1/amenities/
-Content-Type: application/json
 ```
 
 Expected Response:
@@ -171,7 +170,6 @@ Possible Status Codes:
 
 ```http
 GET /api/v1/amenities/<amenity_id>
-Content-Type: application/json
 ```
 
 Expected Response:
