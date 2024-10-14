@@ -145,7 +145,7 @@ In the `api/v1/places.py` file, update the `place_model` to include the collecti
 
 ```python
 # Adding the review model
-review_model = api.model('Review', {
+review_model = api.model('PlaceReview', {
     'id': fields.String(description='Review ID'),
     'text': fields.String(description='Text of the review'),
     'rating': fields.Integer(description='Rating of the place (1-5)'),
