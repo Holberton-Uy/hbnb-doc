@@ -28,7 +28,7 @@
 4. **Pages to Complete**:
    - **Login Form**: Create a login form with fields for email and password.
    - **List of Places**: Design a page to display a list of places with basic information.
-   - **Place Details**: Create a detailed view for a specific place, including images and detailed information.
+   - **Place Details**: Create a detailed view for a specific place, including detailed information.
    - **Add Review Form**: Design a form for adding a review to a place, accessible only to authenticated users.
 
 #### Instructions for Styles and Structure
@@ -45,9 +45,9 @@
 2. **Data to Display**:
    - **Index (index.html)**:
      - Display a list of places as "cards" using the class `place-card`.
-     - Each card must include an image of the place with the class `place-image`, the name, the price per night, the location, and a "View Details" button with the class `details-button`.
+     - Each card must include the name, the price per night and a "View Details" button with the class `details-button`.
    - **Place Details (place.html)**:
-     - Display extended information about the place, including the host, price, location, description, and amenities using the classes `place-details`, `place-image-large`, and `place-info`.
+     - Display extended information about the place, including the host, price, description, and amenities using the classes `place-details` and `place-info`.
      - List reviews if they exist, each displayed as a card with the comment, user name, and rating using the class `review-card`.
      -  Include a button to navigate to the `add_review.html` page if the user is logged in.
      - Optional: Substitute the previous button with a form to add a new review if the user is logged in, using the classes `add-review` and `form`.
