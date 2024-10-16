@@ -74,7 +74,7 @@ Proper error handling for invalid place IDs.
 
 ##### 2. UI/UX (3 points)
 The place details are displayed in a user-friendly manner.
-Add review form is easy to use and understand.
+Add review form is easy to access.
 
 ##### 3. Code Quality (2 points)
 JavaScript code is well-organized and follows best practices.
