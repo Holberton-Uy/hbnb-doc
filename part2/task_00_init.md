@@ -77,7 +77,7 @@ Although the Persistence layer will be fully implemented in Part 3, this task in
 
     def create_app():
         app = Flask(__name__)
-        api = Api(app, version='1.0', title='HBnB API', description='HBnB Application API')
+        api = Api(app, version='1.0', title='HBnB API', description='HBnB Application API', doc='/api/v1/')
 
         # Placeholder for API namespaces (endpoints will be added later)
         # Additional namespaces for places, reviews, and amenities will be added later
@@ -182,6 +182,16 @@ Although the Persistence layer will be fully implemented in Part 3, this task in
     ```
 
     The methods in the Facade use placeholders to avoid errors during initial testing. The actual logic will be added in future tasks.
+
+    Let's create an instance of the `HBnBFacade` class in the `__init__.py` file of the `services/` directory:
+
+    ```python
+    from app.services.facade import HBnBFacade
+
+    facade = HBnBFacade()
+    ```
+
+    This `facade` instance will be used as a [singleton](https://refactoring.guru/design-patterns/singleton) to make sure that only one instance of the `HBnBFacade` class is created and used throughout the application.
 
 6. **Create the Entry Point**
 

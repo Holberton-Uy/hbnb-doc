@@ -44,7 +44,7 @@ Create the `api/v1/amenities.py` file, then define the routes and create the ske
 
 ```python
 from flask_restx import Namespace, Resource, fields
-from app.services.facade import HBnBFacade
+from app.services import facade
 
 api = Namespace('amenities', description='Amenity operations')
 
@@ -52,8 +52,6 @@ api = Namespace('amenities', description='Amenity operations')
 amenity_model = api.model('Amenity', {
     'name': fields.String(required=True, description='Name of the amenity')
 })
-
-facade = HBnBFacade()
 
 @api.route('/')
 class AmenityList(Resource):

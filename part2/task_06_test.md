@@ -114,7 +114,6 @@ class TestUserEndpoints(unittest.TestCase):
             "email": "jane.doe@example.com"
         })
         self.assertEqual(response.status_code, 201)
-        self.assertIn('User created successfully', response.get_json()['message'])
 
     def test_create_user_invalid_data(self):
         response = self.client.post('/api/v1/users/', json={
@@ -123,7 +122,6 @@ class TestUserEndpoints(unittest.TestCase):
             "email": "invalid-email"
         })
         self.assertEqual(response.status_code, 400)
-        self.assertIn('Invalid input data', response.get_json()['error'])
 ```
 
 These tests should cover both positive and negative scenarios for all endpoints.

@@ -56,7 +56,7 @@ Create the `api/v1/reviews.py` file, then define the routes and create the skele
 
 ```python
 from flask_restx import Namespace, Resource, fields
-from app.services.facade import HBnBFacade
+from app.services import facade
 
 api = Namespace('reviews', description='Review operations')
 
@@ -67,8 +67,6 @@ review_model = api.model('Review', {
     'user_id': fields.String(required=True, description='ID of the user'),
     'place_id': fields.String(required=True, description='ID of the place')
 })
-
-facade = HBnBFacade()
 
 @api.route('/')
 class ReviewList(Resource):
