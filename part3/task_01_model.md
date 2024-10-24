@@ -8,7 +8,7 @@ In previous tasks, the `User` model was created, but it did not handle passwords
 
 #### Instructions
 
-1. **Install the `flask-bcrypt` Library**
+1. **Install the `flask-bcrypt` plugin**
    - In your `requirements.txt` file, add the following line:
      ```
      flask-bcrypt
@@ -18,7 +18,7 @@ In previous tasks, the `User` model was created, but it did not handle passwords
      pip install flask-bcrypt
      ```
 
-2. **Update the `User` Model to Include Password Hashing**
+2. **Register the plugin within the Application**
    - In the `app/__init__.py` file:
      - Import `Bcrypt` from `flask_bcrypt` package and instantiate it.
        
@@ -37,6 +37,7 @@ In previous tasks, the `User` model was created, but it did not handle passwords
           bcrypt.init_app(app)
        ```
 
+2. **Update the `User` Model to Include Password Hashing**
    - In the `models/user.py` file:
       - update the `User` class to include a `password` attribute. This field will store the hashed version of the user's password.
 
