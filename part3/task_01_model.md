@@ -8,17 +8,37 @@ In previous tasks, the `User` model was created, but it did not handle passwords
 
 #### Instructions
 
-1. **Update the `User` Model to Include Password Hashing**
-   - In the `models/user.py` file:
-     - Import `Bcrypt` from `flask_bcrypt` package and initialize it.
+1. **Install the `flask-bcrypt` Library**
+   - In your `requirements.txt` file, add the following line:
+     ```
+     flask-bcrypt
+     ```
+   - Run the following command to install it:
+     ```bash
+     pip install flask-bcrypt
+     ```
+
+2. **Update the `User` Model to Include Password Hashing**
+   - In the `app/__init__.py` file:
+     - Import `Bcrypt` from `flask_bcrypt` package and instantiate it.
        
        ```python
        from flask_bcrypt import Bcrypt
       
        bcrypt = Bcrypt()
        ```
-       
-     - update the `User` class to include a `password` attribute. This field will store the hashed version of the user's password.
+ 
+     - Initialize the instance in the `create_app()` function.
+       ```python
+       def create_app():
+          #
+          # Existent code with app Flask instance
+          # ...
+          bcrypt.init_app(app)
+       ```
+
+   - In the `models/user.py` file:
+      - update the `User` class to include a `password` attribute. This field will store the hashed version of the user's password.
 
    - Implement the following methods in the `User` class:
      - **hash_password(password):** This function should take a plaintext password, hash it using **bcrypt**, and store the hashed version in the `password` field.
@@ -37,15 +57,15 @@ In previous tasks, the `User` model was created, but it did not handle passwords
            return bcrypt.check_password_hash(self.password, password)
        ```
 
-2. **Modify the User Registration Endpoint (`POST /api/v1/users/`)**
+3. **Modify the User Registration Endpoint (`POST /api/v1/users/`)**
    - Modify the user registration endpoint to accept a `password` field in addition to the first name, last name, and email.
    - Ensure that the `password` is hashed using the `hash_password` function before storing the user in the repository.
    - After registering the user, do **not** return the password in the response. You will only return the user's ID and a success message.
 
-3. **Modify the User Retrieval Endpoint (`GET /api/v1/users/<user_id>`)**
+4. **Modify the User Retrieval Endpoint (`GET /api/v1/users/<user_id>`)**
    - Update the `GET` endpoint to **exclude** the `password` from the response when retrieving a user's details.
 
-4. **Test the Password Hashing Logic**
+5. **Test the Password Hashing Logic**
    - Use Postman or cURL to test the POST /api/v1/users/ endpoint, ensuring that the password is hashed and not returned in the response.
    - Verify that the GET /api/v1/users/<user_id> endpoint does not expose the password field.
 
