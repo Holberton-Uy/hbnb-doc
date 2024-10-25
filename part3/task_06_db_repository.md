@@ -30,15 +30,34 @@ You will:
 
      db = SQLAlchemy()
 
-     def create_app():
-         app = Flask(__name__)
-         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///development.db'
-         app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
+     def create_app(config_class=config.DevelopmentConfig):
+         #
+         # Existent code with app Flask instance
+         #
          db.init_app(app)
 
-         # Register API namespaces
-         return app
+         # ...
+     ```
+
+2. **Add configuration parameters for SQLAlchemy**
+
+   - Add the following configuration keys to the `DevelopmentConfig` Class in the `config.py` file
+     ```python
+     import os
+ 
+     class Config:
+         SECRET_KEY = os.getenv('SECRET_KEY', 'default_secret_key')
+         DEBUG = False
+ 
+     class DevelopmentConfig(Config):
+         DEBUG = True
+         SQLALCHEMY_DATABASE_URI = 'sqlite:///development.db'
+         SQLALCHEMY_TRACK_MODIFICATIONS = False
+ 
+     config = {
+         'development': DevelopmentConfig,
+         'default': DevelopmentConfig
+     }
      ```
 
    - `SQLALCHEMY_DATABASE_URI`: Sets the URI for the SQLite database.
