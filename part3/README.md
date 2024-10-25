@@ -25,7 +25,7 @@ Additionally, you'll introduce **JWT-based authentication** to secure the API, e
 #### Project Resources
 Here are some resources that will guide you through this part of the project:
 - **JWT Authentication**: [Flask-JWT-Extended Documentation](https://flask-jwt-extended.readthedocs.io/en/stable/)
-- **SQLAlchemy ORM**: [SQLAlchemy Documentation](https://docs.sqlalchemy.org/en/14/)
+- **SQLAlchemy ORM**: [SQLAlchemy Documentation](https://docs.sqlalchemy.org/en/20/)
 - **SQLite**: [SQLite Documentation](https://sqlite.org/docs.html)
 - **MySQL**: [MySQL Documentation](https://dev.mysql.com/doc/)
 - **Flask Documentation**: [Flask Official Documentation](https://flask.palletsprojects.com/en/2.0.x/)
