@@ -19,7 +19,9 @@ In this task, you will:
 
    - Use SQLAlchemy to map the core attributes of the `Place`, `Review`, and `Amenity` entities.
    - For each entity, define the SQLAlchemy model with the appropriate attributes, making sure to assign primary keys and relevant constraints (e.g., `nullable=False` for required fields).
-   - Do **not** include relationships between entities yet (these will be added later).
+
+   > [!WARNING]
+   > Do **not** include relationships between entities yet (these will be added later).
    
    The attributes for each entity and their expected data types are as follows:
    - **Place:**
@@ -41,6 +43,9 @@ In this task, you will:
 
 2. **Follow the Same Steps as the `User` Entity**
    Just as you mapped the `User` entity in the previous task, apply the same structure for defining models, repositories, and facade methods for `Place`, `Review`, and `Amenity`. These models should now be persisted in the database using SQLAlchemy.
+
+> [!IMPORTANT] 
+> You should provide valid entities when calling the API to comply with the Business Logic rules, but they shouldn't be mapped or persisted yet.
 
 3. **Test the Entity Mappings**
    - Initialize the database using `flask shell` and `db.create_all()` after defining your models to create the corresponding tables.
