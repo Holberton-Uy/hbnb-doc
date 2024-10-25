@@ -5,39 +5,60 @@ Map the `User` entity to a SQLAlchemy model, ensuring the correct database relat
 
 #### Context
 In the previous task, the repository was updated to use SQLAlchemy for database persistence, replacing the in-memory repository. This task extends that functionality by mapping the `User` entity to the database using SQLAlchemy. The new `UserRepository` will be responsible for handling user-specific queries, enhancing the flexibility and maintainability of the application.
+As we're also using a BaseClass to handle the common attributes for all the Business Logic classes, we'll update this class first to manage the mapping.
 
 In this task, you will:
-1. Map the `User` entity to a SQLAlchemy model, including attributes like `first_name`, `last_name`, `email`, `password`, and `is_admin`.
-2. Implement the `UserRepository` class to interact with the database using SQLAlchemy.
-3. Refactor the `Facade` to use the `UserRepository` for user-related operations.
+1. Map the `BaseModel` class to a SQLAlchemy model, including the `id`, `created_at` and `updated_at` attributes.
+2. Map the `User` entity to a SQLAlchemy model, including attributes like `first_name`, `last_name`, `email`, `password`, and `is_admin`.
+3. Implement the `UserRepository` class to interact with the database using SQLAlchemy.
+4. Refactor the `Facade` to use the `UserRepository` for user-related operations.
 
 ---
 
 #### Instructions
 
-1. **Map the User Entity**
 
-   In the `models/user.py` file, define the `User` class as a SQLAlchemy model:
+1. **Map the BaseModel class**
+
+   In the `models/baseclass.py` file, define the `BaseModel` class as a SQLAlchemy model:
+   - Each attribute (e.g., `id`, `created_at`, `updated_at`) should map to a column in the database.
+   - Add relevant constraints such as Primary keys or default values.
+
+    ```python
+    from app import db
+    import uuid
+    from datetime import datetime
+
+    class BaseModel(db.Model):
+        __abstract__ = True  # This ensures SQLAlchemy does not create a table for BaseModel
+
+        id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+        created_at = db.Column(db.DateTime, default=datetime.utcnow)
+        updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+        # ...
+    ```
+
+2. **Map the User Entity**
+
+   In the `models/user.py` file, define the `User` class to inherit from `BaseModel` (also a SQLAlchemy model):
    - Each attribute (e.g., `first_name`, `last_name`, `email`, `password`, `is_admin`) should map to a column in the database.
    - Add relevant constraints such as `unique=True` for the `email` column to ensure no duplicate emails are allowed.
    
    **Example:**
    ```python
-   from app import db
-   from flask_bcrypt import Bcrypt
+   from app import db, bcrypt
    import uuid
-   
-   bcrypt = Bcrypt()
-   
-   class User(db.Model):
-       __tablename__ = 'users'
-   
-       id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
-       first_name = db.Column(db.String(50), nullable=False)
-       last_name = db.Column(db.String(50), nullable=False)
-       email = db.Column(db.String(120), nullable=False, unique=True)
-       password = db.Column(db.String(128), nullable=False)
-       is_admin = db.Column(db.Boolean, default=False)
+   from .base_model import BaseModel  # Import BaseModel from its module
+
+   class User(BaseModel):
+        __tablename__ = 'users'
+
+        first_name = db.Column(db.String(50), nullable=False)
+        last_name = db.Column(db.String(50), nullable=False)
+        email = db.Column(db.String(120), nullable=False, unique=True)
+        password = db.Column(db.String(128), nullable=False)
+        is_admin = db.Column(db.Boolean, default=False)
    
        def hash_password(self, password):
            """Hash the password before storing it."""
@@ -48,13 +69,11 @@ In this task, you will:
            return bcrypt.check_password_hash(self.password, password)
    ```
 
-   **Explanation of SQLAlchemy Methods:**
-   - `db.Column`: Defines a column in the database.
-   - `primary_key=True`: Marks the column as the primary key.
-   - `unique=True`: Ensures unique values (used here to prevent duplicate emails).
+> [!NOTE] Validation Methods
+> At this point you've already developed some methods (probably setters) to validate the Entities input attributes. You can also add specific validators for SQLAlchemy using the [`validates()` decorator](https://docs.sqlalchemy.org/en/20/orm/mapped_attributes.html).
+> Be sure to read [this section about using Descriptors and Hybrids](https://docs.sqlalchemy.org/en/20/orm/mapped_attributes.html#using-descriptors-and-hybrids)
 
-
-1. **Implement the UserRepository**
+3. **Implement the UserRepository**
 
    Instead of relying solely on the generic `SQLAlchemyRepository`, create a specific `UserRepository` class that extends from the base repository.
 
