@@ -1,4 +1,4 @@
-### Task 0: Modify the Application Factory to Include the Configuration
+### Task 1: Modify the Application Factory to Include the Configuration
 
 #### Objective
 Update the Flask Application Factory to include the configuration object.
