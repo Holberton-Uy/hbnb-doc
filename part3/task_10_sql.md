@@ -82,10 +82,7 @@ In this task, you will focus on designing the database schema using raw SQL to g
 ---
 
 #### Resources
-- **PostgreSQL Documentation**: [PostgreSQL Documentation](https://www.postgresql.org/docs/)
 - **SQL Tutorial for Beginners**: [W3Schools SQL Tutorial](https://www.w3schools.com/sql/)
-- **UUID Generator**: [UUID Generator](https://www.uuidgenerator.net/)
-- **bcrypt2 Documentation**: [Flask-Bcrypt Documentation](https://flask-bcrypt.readthedocs.io/en/latest/)
 
 #### Expected Outcome
 By the end of this task, you should have:

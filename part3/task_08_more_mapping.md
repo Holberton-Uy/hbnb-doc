@@ -54,9 +54,9 @@ In this task, you will:
 ---
 
 #### Resources
-1. **SQLAlchemy Documentation:** [SQLAlchemy](https://docs.sqlalchemy.org/en/14/)
+1. **SQLAlchemy Documentation:** [SQLAlchemy](https://docs.sqlalchemy.org/en/20/)
 2. **Flask-SQLAlchemy Documentation:** [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/)
-3. **SQLAlchemy Relationship Patterns:** [SQLAlchemy ORM Relationships](https://docs.sqlalchemy.org/en/14/orm/relationships.html)
+3. **SQLAlchemy Relationship Patterns:** [SQLAlchemy ORM Relationships](https://docs.sqlalchemy.org/en/20/orm/relationships.html)
 
 ---
 

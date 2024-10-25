@@ -1,4 +1,4 @@
-### Task 12: Generate Database Diagrams Using Mermaid.js
+### Task 11: Generate Database Diagrams Using Mermaid.js
 
 #### Objective
 Create Entity-Relationship (ER) diagrams to visually represent the structure of the database schema for the HBnB project using **Mermaid.js**. This task will help ensure that the database schema is accurately reflected and consistent with previous parts of the project. Students will use Mermaid.js to visualize tables and their relationships in a readable format.
@@ -99,7 +99,7 @@ In this task, students will:
 
 - **Mermaid.js Documentation**: [Mermaid.js Official Docs](https://mermaid-js.github.io/mermaid/)
 - **Live Mermaid.js Editor**: [Mermaid Live Editor](https://mermaid-js.github.io/mermaid-live-editor/)
-- **SQLAlchemy Relationship Documentation**: [SQLAlchemy ORM Relationships](https://docs.sqlalchemy.org/en/14/orm/basic_relationships.html)
+- **SQLAlchemy Relationship Documentation**: [SQLAlchemy ORM Relationships](https://docs.sqlalchemy.org/en/20/orm/basic_relationships.html)
 
 ---
 

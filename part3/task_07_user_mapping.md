@@ -161,7 +161,7 @@ In this task, you will:
 ---
 
 #### Resources
-1. **SQLAlchemy Documentation:** [SQLAlchemy](https://docs.sqlalchemy.org/en/14/)
+1. **SQLAlchemy Documentation:** [SQLAlchemy](https://docs.sqlalchemy.org/en/20/)
 2. **Flask-SQLAlchemy Documentation:** [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/)
 3. **Flask-Bcrypt Documentation:** [Flask-Bcrypt](https://flask-bcrypt.readthedocs.io/en/latest/)
 4. **Testing REST APIs with cURL:** [Everything cURL](https://everything.curl.dev/)
