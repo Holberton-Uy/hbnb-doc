@@ -30,7 +30,7 @@ In previous tasks, the `User` model was created, but it did not handle passwords
  
      - Initialize the instance in the `create_app()` function.
        ```python
-       def create_app():
+       def create_app(config_class=config.DevelopmentConfig):
           #
           # Existent code with app Flask instance
           # ...

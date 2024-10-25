@@ -74,20 +74,28 @@ This sequence diagram visualizes the flow where:
      ```
 
 2. **Configure JWT in the Flask Application**
-   - In the `app/__init__.py` file, import and initialize the `JWTManager` class provided by `flask-jwt-extended` to enable JWT handling in your Flask application. 
+   - In the `app/__init__.py` file, import and instantiate the `JWTManager` class provided by `flask-jwt-extended` to enable JWT handling in your Flask application. 
    
-     Add the following code inside your `create_app()` function:
      ```python
      from flask_jwt_extended import JWTManager
 
-     def create_app():
-         app = Flask(__name__)
-         app.config['JWT_SECRET_KEY'] = 'your_jwt_secret_key'  # Use a strong and unique key in production
-         jwt = JWTManager(app)
-         return app
+     jwt = JWTManager()
+     ```
+
+   - In the `create_app()` function, register the middleware with the application instance.
+
+     ```python
+     def create_app(config_class=config.DevelopmentConfig):
+          #
+          # Existent code with app Flask instance
+          # ...
+         jwt.init_app(app)
+         
      ```
      
-     - **JWT_SECRET_KEY**: This secret key is used to sign and validate the JWT tokens. Make sure to use a unique and secure key for production environments to ensure the integrity and security of the tokens.
+     > [!IMPORTANT] Secret
+     > The `flask-jwt-extended` uses a key stored in [`JWT_SECRET_KEY`](https://flask-jwt-extended.readthedocs.io/en/stable/options.html#JWT_SECRET_KEY) for securely signing the session cookie. 
+     > In this project we're going to use Flask's [SECRET_KEY](https://flask.palletsprojects.com/en/stable/config/#SECRET_KEY) that we've already set in the Configuration Class and can also be used by the plugin.
 
 3. **Create a Login Endpoint (`POST /api/v1/login`)**
    - The login endpoint will authenticate the user, generate a JWT token, and return it to the client. The token will include the user's `id` and `is_admin` claim to differentiate between regular users and admins.
@@ -96,7 +104,7 @@ This sequence diagram visualizes the flow where:
      ```python
      from flask_restx import Namespace, Resource, fields
      from flask_jwt_extended import create_access_token
-     from app.services.facade import HBnBFacade
+     from app.services import facade
 
      api = Namespace('auth', description='Authentication operations')
 
@@ -105,8 +113,6 @@ This sequence diagram visualizes the flow where:
          'email': fields.String(required=True, description='User email'),
          'password': fields.String(required=True, description='User password')
      })
-
-     facade = HBnBFacade()
 
      @api.route('/login')
      class Login(Resource):
