@@ -10,6 +10,7 @@ In this task, you will:
 1. Secure endpoints to ensure only authenticated users can create, update, and delete resources.
 2. Add logic to validate ownership of places and reviews.
 3. Implement logic to prevent users from reviewing places they own or reviewing a place multiple times.
+4. Verify that public users can access the **PUBLIC** endpoints without a JWT token.
 
 ---
 
@@ -25,7 +26,12 @@ In this task, you will:
    - **DELETE /api/v1/reviews/<review_id>**: Delete a review. Users can only delete reviews they created.
    - **PUT /api/v1/users/<user_id>**: Modify user information. Users can only modify their own details (excluding email and password).
 
-2. **Implement the Logic for JWT Authentication**
+2. **Identify Public Endpoints**
+   - The following endpoints will be publicly accessible:
+     - **GET** `/api/v1/places/`: Retrieve a list of available places.
+     - **GET** `/api/v1/places/<place_id>`: Retrieve detailed information about a specific place.
+
+3. **Implement the Logic for JWT Authentication**
    Use the `@jwt_required()` decorator from `flask-jwt-extended` to enforce JWT authentication on the above endpoints. The `get_jwt_identity()` function will be used to identify the currently logged-in user.
 
    **Example:**
@@ -45,7 +51,7 @@ In this task, you will:
            pass
    ```
 
-3. **Validation Logic**
+4. **Validation Logic**
 
    - **Create Place (POST /api/v1/places/):**
      - Ensure the user is authenticated.
@@ -96,7 +102,7 @@ In this task, you will:
 
 ---
 
-4. **Test the Authenticated Endpoints**
+5. **Test the Authenticated Endpoints**
 
    Use Postman or cURL to test these authenticated endpoints. Ensure that unauthorized actions (e.g., modifying a place that the user does not own) return the appropriate error messages.
 
@@ -135,6 +141,48 @@ In this task, you will:
    **Test Modifying User Data (PUT /api/v1/users/<user_id>):**
    ```bash
    curl -X PUT "http://127.0.0.1:5000/api/v1/users/<user_id>" -d '{"first_name": "Updated Name"}' -H "Authorization: Bearer <your_token>" -H "Content-Type: application/json"
+   ```
+
+6. **Test the Public Endpoints**
+   - Test the endpoints to verify they can be accessed without a JWT token.
+
+   **Example Test Using cURL:**
+   - Retrieve a list of places:
+     ```bash
+     curl -X GET "http://127.0.0.1:5000/api/v1/places/"
+     ```
+
+   **Expected Response:**
+   ```json
+   [
+       {
+           "id": "1fa85f64-5717-4562-b3fc-2c963f66afa6",
+           "title": "Cozy Apartment",
+           "price": 100.0
+       },
+       {
+           "id": "2fa85f64-5717-4562-b3fc-2c963f66afa6",
+           "title": "Luxury Condo",
+           "price": 200.0
+       }
+   ]
+   ```
+
+   - Retrieve detailed information about a specific place:
+     ```bash
+     curl -X GET "http://127.0.0.1:5000/api/v1/places/1fa85f64-5717-4562-b3fc-2c963f66afa6"
+     ```
+
+   **Expected Response:**
+   ```json
+   {
+       "id": "1fa85f64-5717-4562-b3fc-2c963f66afa6",
+       "title": "Cozy Apartment",
+       "description": "A comfortable and affordable place to stay.",
+       "price": 100.0,
+       "latitude": 37.7749,
+       "longitude": -122.4194
+   }
    ```
 
 ---
