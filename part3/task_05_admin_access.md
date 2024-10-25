@@ -1,4 +1,4 @@
-### Task 5: Implement Administrator Access Endpoints
+### Task: Implement Administrator Access Endpoints
 
 #### Objective
 Restrict access to specific API endpoints so that only users with administrative privileges can perform certain actions. These actions include creating new users, modifying any user's details (including email and password), and adding or modifying amenities. Additionally, administrators can perform the same tasks as authenticated users without being restricted by ownership of places and reviews.
