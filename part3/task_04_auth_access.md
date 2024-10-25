@@ -1,4 +1,4 @@
-### Task 4: Implement Authenticated User Access Endpoints
+### Task: Implement Authenticated User Access Endpoints
 
 #### Objective
 Secure various API endpoints to allow only authenticated users to perform specific actions, including creating and modifying places and reviews, as well as updating their own user details. Access will be controlled via JWT authentication, with additional validation to ensure users can only modify data that belongs to them (e.g., places they own, reviews they created).
