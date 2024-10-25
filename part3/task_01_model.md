@@ -1,4 +1,4 @@
-### Modify the User Model to Include Password Hashing
+### Task: Modify the User Model to Include Password Hashing
 
 #### Objective
 Update the `User` model to securely store a hashed password using **bcrypt**. Modify the user registration endpoint to accept the `password` field and ensure that it is hashed before storing it. The password should **not** be returned in any `GET` requests.
