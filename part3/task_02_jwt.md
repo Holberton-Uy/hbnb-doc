@@ -1,4 +1,4 @@
-### Implement JWT Authentication with `flask-jwt-extended`
+### Task: Implement JWT Authentication with `flask-jwt-extended`
 
 #### Objective
 Set up JWT-based authentication for the HBnB application, enabling secure login functionality. This task involves configuring the API to generate and verify JWT tokens using the `flask-jwt-extended` extension. Tokens will be issued upon successful login and required for accessing protected endpoints.
