@@ -134,7 +134,7 @@ You will:
 
 #### Resources
 
-- **SQLAlchemy Documentation:** [SQLAlchemy](https://docs.sqlalchemy.org/en/14/)
+- **SQLAlchemy Documentation:** [SQLAlchemy](https://docs.sqlalchemy.org/en/20/)
 - **Flask-SQLAlchemy Documentation:** [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/)
 
 ---

@@ -53,7 +53,7 @@ class Child(db.Model):
 
 ##### **2. Many-to-Many Relationships**
 
-In a many-to-many relationship, multiple records in one table can be related to multiple records in another table. For example, a student can enroll in multiple courses, and a course can have multiple students enrolled.
+In a many-to-many relationship, multiple records in one table can be related to multiple records in another table. For example, a student can enroll in multiple courses, and a course can have multiple students enrolled. As you already should know, this cannot be modeled directly in a Relational Database without [adding an additional table](https://help.claris.com/en/pro-help/content/many-to-many-relationships.html). For SQLAlchemy be able to relate this data, the [associate table should also be mapped](https://docs.sqlalchemy.org/en/20/orm/basic_relationships.html#many-to-many).
 
 **Example:**
 ```python
@@ -138,7 +138,7 @@ After defining the relationships, you should test them using Postman or cURL. Be
 #### Resources
 1. **SQLAlchemy Documentation:** [SQLAlchemy](https://docs.sqlalchemy.org/en/14/)
 2. **Flask-SQLAlchemy Documentation:** [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/)
-3. **SQLAlchemy Relationship Patterns:** [SQLAlchemy ORM Relationships](https://docs.sqlalchemy.org/en/14/orm/relationships.html)
+3. **SQLAlchemy Relationship Patterns:** [SQLAlchemy ORM Relationships](https://docs.sqlalchemy.org/en/20/orm/relationships.html)
 
 ---
 
