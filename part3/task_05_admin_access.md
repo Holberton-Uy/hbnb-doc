@@ -40,9 +40,9 @@ In this task, you will:
        @jwt_required()
        def put(self, user_id):
            current_user = get_jwt_identity()
-           claims = get_jwt()
            
-           if not claims['is_admin']:
+           # If 'is_admin' is part of the identity payload
+           if not current_user.get('is_admin'):
                return {'error': 'Admin privileges required'}, 403
 
            data = request.json
@@ -67,8 +67,8 @@ In this task, you will:
      class AdminUserCreate(Resource):
          @jwt_required()
          def post(self):
-             claims = get_jwt()
-             if not claims['is_admin']:
+             current_user = get_jwt_identity()
+             if not current_user.get('is_admin'):
                  return {'error': 'Admin privileges required'}, 403
 
              user_data = request.json
@@ -89,8 +89,8 @@ In this task, you will:
      class AdminUserModify(Resource):
          @jwt_required()
          def put(self, user_id):
-             claims = get_jwt()
-             if not claims['is_admin']:
+             current_user = get_jwt_identity()
+             if not current_user.get('is_admin'):
                  return {'error': 'Admin privileges required'}, 403
 
              data = request.json
@@ -112,8 +112,8 @@ In this task, you will:
      class AdminAmenityCreate(Resource):
          @jwt_required()
          def post(self):
-             claims = get_jwt()
-             if not claims['is_admin']:
+             current_user = get_jwt_identity()
+             if not current_user.get('is_admin'):
                  return {'error': 'Admin privileges required'}, 403
 
              # Logic to create a new amenity
@@ -126,8 +126,8 @@ In this task, you will:
      class AdminAmenityModify(Resource):
          @jwt_required()
          def put(self, amenity_id):
-             claims = get_jwt()
-             if not claims['is_admin']:
+             current_user = get_jwt_identity()
+             if not current_user.get('is_admin'):
                  return {'error': 'Admin privileges required'}, 403
 
              # Logic to update an amenity
@@ -143,11 +143,14 @@ In this task, you will:
    class AdminPlaceModify(Resource):
        @jwt_required()
        def put(self, place_id):
-           claims = get_jwt()
            current_user = get_jwt_identity()
 
+           # Set is_admin default to False if not exists
+           is_admin = current_user.get('is_admin', False)
+           user_id = current_user.get('id')
+
            place = facade.get_place(place_id)
-           if not claims.get('is_admin', False) and place.owner_id != current_user:
+           if not is_admin and place.owner_id != user_id:
                return {'error': 'Unauthorized action'}, 403
 
            # Logic to update the place
@@ -155,6 +158,10 @@ In this task, you will:
    ```
 
 5. **Test the Admin Endpoints**
+
+    > [!IMPORTANT] Unauthorized action
+    > At this point, you should have realized that you'll need a user with administrative permissions to test the admin endpoints. 
+    > Discuss different strategies with your team to overcome this problem.
 
    - **Create a New User as an Admin:**
      ```bash
