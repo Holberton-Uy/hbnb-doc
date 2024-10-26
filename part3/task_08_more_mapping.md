@@ -1,4 +1,4 @@
-### Task 8: Map the Place, Review, and Amenity Entities
+### Task: Map the Place, Review, and Amenity Entities
 
 #### Objective
 Map the `Place`, `Review`, and `Amenity` entities to SQLAlchemy models. This task requires you to apply the knowledge gained from mapping the `User` entity in the previous task to these new entities. You will implement the core database attributes for each entity, and in subsequent tasks, relationships between entities will be defined. No relationships between these entities should be added at this point.
