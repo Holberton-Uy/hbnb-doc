@@ -1,4 +1,4 @@
-### Task 10: SQL Scripts for Table Generation and Initial Data
+### Task: SQL Scripts for Table Generation and Initial Data
 
 #### Objective
 Create SQL scripts to generate the entire database schema for the HBnB project and populate it with initial data. The scripts should include all tables and relationships necessary to reflect the project’s model and insert the required initial data.
