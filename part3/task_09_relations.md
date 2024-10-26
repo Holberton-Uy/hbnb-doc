@@ -1,4 +1,4 @@
-### Task 9: Map Relationships Between Entities Using SQLAlchemy
+### Task: Map Relationships Between Entities Using SQLAlchemy
 
 #### Objective
 Map the relationships between the entities using SQLAlchemy. You will define both one-to-many and many-to-many relationships and apply the appropriate constraints and foreign keys in the models. This task will serve as a foundation for linking related data in your application.
