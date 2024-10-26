@@ -1,4 +1,4 @@
-### Task 6: Implement SQLAlchemy Repository
+### Task: Implement SQLAlchemy Repository
 
 #### Objective
 Replace the in-memory repository with a SQLAlchemy-based repository for persistence. In this task, you will create the `SQLAlchemyRepository` and integrate it into the project for managing database interactions. This task will lay the foundation for further model mapping and database setup in subsequent tasks.
@@ -10,6 +10,9 @@ You will:
 1. Create the SQLAlchemy repository that implements the existing repository interface.
 2. Refactor the existing Facade to utilize the SQLAlchemy-based repository for user operations.
 3. Provide code and detailed instructions for integration, but no database initialization will be performed yet.
+
+> [!IMPORTANT]
+> Read this guide before start:  [Transitioning from In-Memory to Database Persistence: A Step-by-Step Guide](./concept-memory_to_db.md)
 
 ---
 
