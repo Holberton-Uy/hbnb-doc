@@ -1,4 +1,4 @@
-### Task 7: Map the User Entity to SQLAlchemy Model
+### Task: Map the User Entity to SQLAlchemy Model
 
 #### Objective
 Map the `User` entity to a SQLAlchemy model, ensuring the correct database relationships, attribute definitions, and CRUD operations are implemented. You will incorporate the ORM functionality within the repository layer, service layer (Facade), and API layer for full integration. The password hashing mechanism from the previous task should remain functional.
