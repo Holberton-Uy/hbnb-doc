@@ -20,8 +20,8 @@ In this task, you will:
    - Use SQLAlchemy to map the core attributes of the `Place`, `Review`, and `Amenity` entities.
    - For each entity, define the SQLAlchemy model with the appropriate attributes, making sure to assign primary keys and relevant constraints (e.g., `nullable=False` for required fields).
 
-   > [!WARNING]  
-   > Do **not** include relationships between entities yet (these will be added later).
+> [!WARNING]
+> Do **not** include relationships between entities yet (these will be added later).
    
    The attributes for each entity and their expected data types are as follows:
    - **Place:**
