@@ -69,7 +69,7 @@ In this task, you will:
            return bcrypt.check_password_hash(self.password, password)
    ```
 
-> [!NOTE] Validation Methods
+> [!NOTE]
 > At this point you've already developed some methods (probably setters) to validate the Entities input attributes. You can also add specific validators for SQLAlchemy using the [`validates()` decorator](https://docs.sqlalchemy.org/en/20/orm/mapped_attributes.html).
 > Be sure to read [this section about using Descriptors and Hybrids](https://docs.sqlalchemy.org/en/20/orm/mapped_attributes.html#using-descriptors-and-hybrids)
 
