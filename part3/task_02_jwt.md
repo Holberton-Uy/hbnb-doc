@@ -93,7 +93,7 @@ This sequence diagram visualizes the flow where:
          
      ```
      
-     > [!IMPORTANT] Secret
+     > [!IMPORTANT]
      > The `flask-jwt-extended` uses a key stored in [`JWT_SECRET_KEY`](https://flask-jwt-extended.readthedocs.io/en/stable/options.html#JWT_SECRET_KEY) for securely signing the session cookie. 
      > In this project we're going to use Flask's [SECRET_KEY](https://flask.palletsprojects.com/en/stable/config/#SECRET_KEY) that we've already set in the Configuration Class and can also be used by the plugin.
 
