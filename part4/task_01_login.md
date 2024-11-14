@@ -78,6 +78,10 @@
    - Verify that the JWT token is stored in the cookie after a successful login.
    - Ensure that the user is redirected to the main page after login.
 
+> [!WARNING]
+> When testing your client against yout API you'll probably get a Cross-Origin Resource Sharing (CORS) error. You'll need to modify your API code to allow your client to fetch data from the API.
+> Read [this article](https://medium.com/@mterrano1/cors-in-a-flask-api-38051388f8cc) for a depper understanding about CORS and how to configure your Flask API
+
 #### Resources
 
 - [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
