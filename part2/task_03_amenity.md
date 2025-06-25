@@ -99,7 +99,7 @@ class AmenityResource(Resource):
 - The placeholders give you a foundation to build on, while you will need to implement the logic based on previous examples like the user registration task.
 
 > [!IMPORTANT]
-> **Remember to register the namespace and API documentation for the amenity endpoints in the `api/__init__.py` file.**
+> **Remember to register the namespace and API documentation for the amenity endpoints in the `app/__init__.py` file.**
 
 ## Input and Output Formats, Status Codes
 
