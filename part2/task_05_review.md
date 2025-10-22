@@ -54,6 +54,9 @@ These methods manage review creation, retrieval, updates, and deletion. You need
 
 Create the `api/v1/reviews.py` file, then define the routes and create the skeleton methods for these endpoints. Use the placeholders provided below to get started.
 
+> [!IMPORTANT]
+> **The endpoint `GET /api/v1/places/<place_id>/reviews` must be added in `api/v1/places.py` instead of `api/v1/reviews.py`, to keep the correct route under the `places` namespace.**
+
 ```python
 from flask_restx import Namespace, Resource, fields
 from app.services import facade
@@ -108,8 +111,12 @@ class ReviewResource(Resource):
         """Delete a review"""
         # Placeholder for the logic to delete a review
         pass
+```
 
-@api.route('/places/<place_id>/reviews')
+Then, in `api/v1/places.py`, add the following resource to handle reviews of a place:
+
+```python
+@api.route('/<place_id>/reviews')
 class PlaceReviewList(Resource):
     @api.response(200, 'List of reviews for the place retrieved successfully')
     @api.response(404, 'Place not found')
@@ -129,7 +136,7 @@ class PlaceReviewList(Resource):
 **Explanation:**
 
 - The `POST` endpoint handles the creation of a new review, while `GET`, `PUT`, and `DELETE` endpoints manage review retrieval, updates, and deletion.
-- The `GET /api/v1/places/<place_id>/reviews` endpoint is specific to retrieving all reviews associated with a particular place.
+- The `GET /api/v1/places/<place_id>/reviews` endpoint is defined in the `places.py` file, under the `places` namespace, to avoid confusing route paths.
 - Placeholders are provided, but you need to implement the logic that handles relationships between reviews, users, and places.
 
 > [!IMPORTANT]
@@ -170,8 +177,8 @@ For each endpoint, ensure that the input format, output format, and status codes
 ### Test the Provided Endpoints
 
 Once the endpoints are implemented, use tools like Postman or cURL to test each operation.
-Ensure that your endpoints are working as expected. Here are some examples:
-
+Ensure that your endpoints are working as expected.
+examples:
 #### Register a New Review (POST /api/v1/reviews/)
 
 ```http
