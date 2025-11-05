@@ -31,7 +31,7 @@ In this task, you will:
    **Example for Checking Admin Status:**
    ```python
    from flask_restx import Namespace, Resource
-   from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
+   from flask_jwt_extended import jwt_required, get_jwt
 
    api = Namespace('admin', description='Admin operations')
 
@@ -39,7 +39,7 @@ In this task, you will:
    class AdminUserResource(Resource):
        @jwt_required()
        def put(self, user_id):
-           current_user = get_jwt_identity()
+           current_user = get_jwt()
            
            # If 'is_admin' is part of the identity payload
            if not current_user.get('is_admin'):
@@ -89,7 +89,7 @@ In this task, you will:
      class AdminUserModify(Resource):
          @jwt_required()
          def put(self, user_id):
-             current_user = get_jwt_identity()
+             current_user = get_jwt()
              if not current_user.get('is_admin'):
                  return {'error': 'Admin privileges required'}, 403
 
@@ -112,7 +112,7 @@ In this task, you will:
      class AdminAmenityCreate(Resource):
          @jwt_required()
          def post(self):
-             current_user = get_jwt_identity()
+             current_user = get_jwt()
              if not current_user.get('is_admin'):
                  return {'error': 'Admin privileges required'}, 403
 
@@ -126,7 +126,7 @@ In this task, you will:
      class AdminAmenityModify(Resource):
          @jwt_required()
          def put(self, amenity_id):
-             current_user = get_jwt_identity()
+             current_user = get_jwt()
              if not current_user.get('is_admin'):
                  return {'error': 'Admin privileges required'}, 403
 
@@ -143,7 +143,7 @@ In this task, you will:
    class AdminPlaceModify(Resource):
        @jwt_required()
        def put(self, place_id):
-           current_user = get_jwt_identity()
+           current_user = get_jwt()
 
            # Set is_admin default to False if not exists
            is_admin = current_user.get('is_admin', False)
